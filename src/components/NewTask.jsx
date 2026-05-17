@@ -120,9 +120,14 @@ function MicIcon() {
 // ── Category ─────────────────────────────────────────────────────────────────
 
 const CATEGORY_STYLES = {
-  trabalho: { bg: 'rgba(230,243,254,0.5)', border: '#dbe8f2', dotColor: '#005bab', textColor: '#005bab', label: 'Trabalho' },
-  esporte:  { bg: 'rgba(208,244,216,0.7)', border: '#d0f4d8', dotColor: '#14832b', textColor: '#0f6220', label: 'Esporte' },
-  saude:    { bg: 'rgba(255,205,241,0.7)', border: '#ffcdf1', dotColor: '#9d2472', textColor: '#9d2472', label: 'Saúde' },
+  trabalho: { bg: 'rgba(230,243,254,0.6)', border: '#c8dff5', dotColor: '#005bab', textColor: '#005bab', label: 'Trabalho' },
+  esporte:  { bg: 'rgba(208,244,216,0.7)', border: '#b8edca', dotColor: '#14832b', textColor: '#0f6220', label: 'Esporte' },
+  saude:    { bg: 'rgba(255,205,241,0.7)', border: '#f5c0e8', dotColor: '#9d2472', textColor: '#9d2472', label: 'Saúde' },
+  estudo:   { bg: 'rgba(255,237,180,0.7)', border: '#f0d890', dotColor: '#a07700', textColor: '#8a6500', label: 'Estudo' },
+  foco:     { bg: 'rgba(220,210,255,0.7)', border: '#cbbff5', dotColor: '#5b3fc4', textColor: '#4a31a8', label: 'Foco' },
+  pessoal:  { bg: 'rgba(255,218,200,0.7)', border: '#f5c4a8', dotColor: '#c45a28', textColor: '#a84820', label: 'Pessoal' },
+  casa:     { bg: 'rgba(180,230,225,0.7)', border: '#9dd4ce', dotColor: '#1a7a72', textColor: '#156860', label: 'Casa' },
+  outros:   { bg: 'rgba(230,228,225,0.7)', border: '#d0cec9', dotColor: '#78736f', textColor: '#5f5b57', label: 'Outros' },
 }
 
 function CategoryTag({ type }) {
@@ -196,7 +201,7 @@ async function generateTasksWithGPT(text, todayISO) {
 Analise o texto transcrito e extraia TODAS as tarefas mencionadas, sem omitir nenhuma.
 Cada item distinto que o usuário mencionar deve virar uma tarefa separada.
 Para cada tarefa, retorne um objeto no array JSON:
-{"title": "título objetivo e curto (máx 45 chars)", "time": "horário exato como '9h' ou '20:00' ou null se não mencionado", "date": "YYYY-MM-DD", "category": "trabalho|esporte|saude"}
+{"title": "título objetivo e curto (máx 45 chars)", "time": "horário exato como '9h' ou '20:00' ou null se não mencionado", "date": "YYYY-MM-DD", "category": "trabalho|esporte|saude|estudo|foco|pessoal|casa|outros"}
 Regras de data:
 - "hoje" ou sem menção de data → ${todayDate}
 - "amanhã" → ${tomorrowISO}
@@ -205,7 +210,7 @@ Regras de data:
 Regras gerais:
 - Extraia TODAS as tarefas, mesmo que o usuário mencione muitas
 - Se mencionar horário como "8 horas da manhã" → "8h", "20 horas" → "20:00"
-- category "saude" para consultas/médicos/remédios, "esporte" para treino/academia/corrida, "trabalho" para o resto
+- category: "saude" para consultas/médicos/remédios, "esporte" para treino/academia/corrida, "estudo" para estudar/cursos/leitura, "foco" para blocos de concentração/deep work, "pessoal" para tarefas pessoais/família/lazer, "casa" para afazeres domésticos/compras/limpeza, "outros" para o que não se encaixa em nenhuma categoria, "trabalho" para o resto
 - Retorne APENAS o array JSON válido, sem markdown, sem texto adicional.`,
         },
         { role: 'user', content: text },
