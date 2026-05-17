@@ -298,6 +298,28 @@ export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => 
           </div>
         </div>
 
+        {/* Visão geral */}
+        <div className="tasks-overview">
+          <span className="tasks-overview-title">Visão geral</span>
+          <div className="tasks-overview-cards">
+            <div className="tasks-overview-card">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="3" stroke="#242320" strokeWidth="1.4"/><path d="M7 10L9.5 12.5L13.5 8" stroke="#242320" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <span className="tasks-overview-num">{tasks.length}</span>
+              <span className="tasks-overview-label">Total</span>
+            </div>
+            <div className="tasks-overview-card">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#242320" strokeWidth="1.4"/><path d="M10 10V5" stroke="#242320" strokeWidth="1.4" strokeLinecap="round"/><path d="M10 10L14 12.5" stroke="#242320" strokeWidth="1.4" strokeLinecap="round"/></svg>
+              <span className="tasks-overview-num">{tasks.length - completed.size}</span>
+              <span className="tasks-overview-label">Pendentes</span>
+            </div>
+            <div className="tasks-overview-card">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#242320" strokeWidth="1.4"/><path d="M7 10L9.5 12.5L13.5 8" stroke="#242320" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <span className="tasks-overview-num">{completed.size}</span>
+              <span className="tasks-overview-label">Concluídas</span>
+            </div>
+          </div>
+        </div>
+
         {/* Tasks section */}
         <div className="tasks-section">
           <div className="tasks-section-header">
