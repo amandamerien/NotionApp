@@ -156,6 +156,7 @@ export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks, o
             icon={<MicrophoneIcon />}
             title="Crie por voz"
             subtitle="Fale para criar tarefas"
+            onClick={onFalar}
           />
           <FeatureItem
             icon={<UsersIcon />}
