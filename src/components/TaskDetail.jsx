@@ -182,12 +182,14 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
   const [showDatePicker, setShowDatePicker] = useState(false)
   const [reminder, setReminder] = useState(task?.reminder || '15 min antes')
   const [showReminderPicker, setShowReminderPicker] = useState(false)
+  const [category, setCategory] = useState(task?.category || 'trabalho')
+  const [showCategoryPicker, setShowCategoryPicker] = useState(false)
 
-  const s = CATEGORY_STYLES[task?.category] || CATEGORY_STYLES.trabalho
+  const s = CATEGORY_STYLES[category] || CATEGORY_STYLES.trabalho
   const isTeam = task?.type === 'team' || task?.shared === true
 
   function handleSave() {
-    if (onSave) onSave({ ...task, title: titleValue, description, done, date, members: selectedMembers, reminder })
+    if (onSave) onSave({ ...task, title: titleValue, description, done, date, members: selectedMembers, reminder, category })
     onClose()
   }
 
@@ -281,7 +283,7 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
             </div>
 
             {/* Categoria */}
-            <div className="td-row-card">
+            <div className="td-row-card" style={{ cursor: 'pointer' }} onClick={() => setShowCategoryPicker(true)}>
               <div className="td-row-left">
                 <TagIcon />
                 <span className="td-row-label">Categoria</span>
@@ -374,6 +376,40 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
           </button>
         </div>
       </div>
+
+      {/* Category Picker Sheet */}
+      {showCategoryPicker && (
+        <div className="td-reminder-overlay" onClick={() => setShowCategoryPicker(false)}>
+          <div className="td-reminder-sheet" onClick={e => e.stopPropagation()}>
+            <div className="td-group-handle-row">
+              <div className="td-group-handle-pill" />
+            </div>
+            <div className="td-reminder-body">
+              <h2 className="td-group-heading">Categoria</h2>
+              {Object.entries(CATEGORY_STYLES).map(([key, cs]) => (
+                <button
+                  key={key}
+                  type="button"
+                  className={`td-reminder-option${category === key ? ' td-reminder-option--selected' : ''}`}
+                  onClick={() => { setCategory(key); setShowCategoryPicker(false) }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <div className="td-category-badge" style={{ background: cs.bg, borderColor: cs.border }}>
+                      <div className="td-category-dot" style={{ background: cs.dotColor }} />
+                      <span style={{ color: cs.textColor }}>{cs.label}</span>
+                    </div>
+                  </div>
+                  {category === key && (
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                      <path d="M3.5 9L7.5 13L14.5 5.5" stroke="#7237ae" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Reminder Picker Sheet */}
       {showReminderPicker && (
