@@ -374,13 +374,25 @@ export default function NewTask({ onClose, onConfirm }) {
 
     if (transcriptRef.current.trim()) {
       const todayISO = localISO(new Date())
+      let tasks = []
       try {
-        const tasks = await generateTasksWithGPT(transcriptRef.current, todayISO)
-        setGeneratedTasks(tasks)
+        tasks = await generateTasksWithGPT(transcriptRef.current, todayISO)
       } catch (_) {
-        const sentences = transcriptRef.current.split(/[.!?]+/).map(s => s.trim()).filter(s => s.length > 4)
-        setGeneratedTasks(sentences.map(s => ({ title: s, time: null, date: todayISO, category: 'trabalho' })))
+        tasks = []
       }
+
+      if (tasks.length === 0) {
+        // GPT returned nothing or failed — extract tasks from transcript directly
+        const sentences = transcriptRef.current
+          .split(/[.!?;]+/)
+          .map(s => s.trim())
+          .filter(s => s.length > 3)
+        tasks = sentences.length > 0
+          ? sentences.map(s => ({ title: s, time: null, date: todayISO, category: 'trabalho' }))
+          : [{ title: transcriptRef.current.trim(), time: null, date: todayISO, category: 'trabalho' }]
+      }
+
+      setGeneratedTasks(tasks)
     }
 
     const elapsed = Date.now() - thinkingStart

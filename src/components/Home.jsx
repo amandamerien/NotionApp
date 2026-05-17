@@ -48,14 +48,6 @@ function UsersIcon() {
   )
 }
 
-function VideoIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <path d="M9.5 5H2.5C1.94772 5 1.5 5.44772 1.5 6V11C1.5 11.5523 1.94772 12 2.5 12H9.5C10.0523 12 10.5 11.5523 10.5 11V6C10.5 5.44772 10.0523 5 9.5 5Z" stroke="#5F5B57" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M10.5 7.5L14.5 5.5V11.5L10.5 9.5" stroke="#5F5B57" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  )
-}
 
 function PlusIcon() {
   return (
@@ -91,7 +83,7 @@ function FeatureItem({ icon, title, subtitle, onClick }) {
   )
 }
 
-export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks, onMeeting }) {
+export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks }) {
   return (
     <div className="home">
       <div className="home-top">
@@ -157,12 +149,6 @@ export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks, o
             title="Sintonize sua agenda"
             subtitle="Conecte seus compromissos"
             onClick={onCalendar}
-          />
-          <FeatureItem
-            icon={<VideoIcon />}
-            title="Reunião com equipe"
-            subtitle="Crie e compartilhe com o time"
-            onClick={onMeeting}
           />
         </div>
 
