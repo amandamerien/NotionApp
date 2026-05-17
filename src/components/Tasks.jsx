@@ -118,14 +118,16 @@ function PersonIcon() {
   )
 }
 
-function AvatarStack({ count = 4 }) {
-  const visible = Math.min(count, 3)
-  const extra = count - visible
+function AvatarStack({ members = [] }) {
+  const visible = members.slice(0, 2)
+  const extra = members.length - visible.length
   return (
     <div className="tasks-avatar-stack">
-      {Array.from({ length: visible }).map((_, i) => (
+      {visible.map((m, i) => (
         <div key={i} className="tasks-avatar-bubble">
-          <PersonIcon />
+          {m.img
+            ? <img src={m.img} alt={m.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
+            : <PersonIcon />}
         </div>
       ))}
       {extra > 0 && (
@@ -220,6 +222,8 @@ export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => 
     const taskDate = t.date || todayISO
     return taskDate === selectedDate
   })
+
+  const sharedTasks = filteredTasks.filter(t => t.members && t.members.length > 0)
 
   return (
     <div className="tasks">
@@ -343,7 +347,7 @@ export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => 
                 const s = CATEGORY_STYLES[task.category] || CATEGORY_STYLES.trabalho
                 const key = `${selectedDate}-${idx}`
                 const done = completed.has(key)
-                const isTeam = task.type === 'team' || task.shared === true
+                const hasMembers = task.members && task.members.length > 0
                 return (
                   <div
                     key={idx}
@@ -370,8 +374,8 @@ export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => 
                       )}
                     </div>
                     <div className="tasks-item-right">
-                      {isTeam ? (
-                        <AvatarStack count={task.teamCount || 4} />
+                      {hasMembers ? (
+                        <AvatarStack members={task.members} />
                       ) : (
                         <div className="tasks-category-tag" style={{ background: s.bg, borderColor: s.border }}>
                           <div className="tasks-category-dot" style={{ background: s.dotColor }} />
@@ -389,26 +393,69 @@ export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => 
 
         {/* Shared tasks section */}
         <div className="tasks-section">
-          <div className="tasks-section-title-row">
-            <span className="tasks-section-title">Tarefas compartilhadas</span>
-            <div className="tasks-counter"><span>0</span></div>
+          <div className="tasks-section-header">
+            <div className="tasks-section-title-row">
+              <span className="tasks-section-title">Tarefas compartilhadas</span>
+              <div className="tasks-counter"><span>{sharedTasks.length}</span></div>
+            </div>
           </div>
 
-          <div className="tasks-shared-card">
-            <div className="tasks-shared-illustration">
-              <img src={calendarDotsImg} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+          {sharedTasks.length > 0 ? (
+            <div className="tasks-list-container">
+              {sharedTasks.map((task, idx) => {
+                const s = CATEGORY_STYLES[task.category] || CATEGORY_STYLES.trabalho
+                const key = `shared-${selectedDate}-${idx}`
+                const done = completed.has(key)
+                return (
+                  <div
+                    key={idx}
+                    className={`tasks-item${idx === sharedTasks.length - 1 ? ' tasks-item--last' : ''}`}
+                    onClick={() => onTaskClick(task)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <div className="tasks-item-info">
+                      <div className="tasks-item-checkbox-row">
+                        <button
+                          type="button"
+                          className={`tasks-item-checkbox${done ? ' tasks-item-checkbox--done' : ''}`}
+                          onClick={e => { e.stopPropagation(); toggleComplete(key) }}
+                        >
+                          {done && <CheckIcon />}
+                        </button>
+                        <span className={`tasks-item-title${done ? ' tasks-item-title--done' : ''}`}>{task.title}</span>
+                      </div>
+                      {task.time && (
+                        <div className="tasks-item-time-row">
+                          <ClockIcon />
+                          <span className="tasks-item-time">{task.time}</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="tasks-item-right">
+                      <AvatarStack members={task.members} />
+                      <button className="tasks-item-dots" type="button" onClick={e => e.stopPropagation()}><DotsIcon /></button>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
-            <div className="tasks-shared-info">
-              <div>
-                <p className="tasks-shared-title">Organize junto</p>
-                <p className="tasks-shared-subtitle">Compartilhe tarefas com quem faz parte da sua rotina.</p>
+          ) : (
+            <div className="tasks-shared-card">
+              <div className="tasks-shared-illustration">
+                <img src={calendarDotsImg} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
-              <button className="tasks-shared-invite" type="button" onClick={onSharedTasks}>
-                <span>Convidar amigo</span>
-                <ArrowRightIcon />
-              </button>
+              <div className="tasks-shared-info">
+                <div>
+                  <p className="tasks-shared-title">Organize junto</p>
+                  <p className="tasks-shared-subtitle">Compartilhe tarefas com quem faz parte da sua rotina.</p>
+                </div>
+                <button className="tasks-shared-invite" type="button" onClick={onSharedTasks}>
+                  <span>Convidar amigo</span>
+                  <ArrowRightIcon />
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
