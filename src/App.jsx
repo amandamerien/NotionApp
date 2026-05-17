@@ -8,6 +8,7 @@ import TaskDetail from './components/TaskDetail'
 import Pomodoro from './components/Pomodoro'
 import CalendarSheet from './components/CalendarSheet'
 import SharedTasks from './components/SharedTasks'
+import MeetingSheet from './components/MeetingSheet'
 import './App.css'
 
 function loadTasks() {
@@ -24,6 +25,7 @@ function App() {
   const [tasks, setTasks] = useState(loadTasks)
   const [selectedTask, setSelectedTask] = useState(null)
   const [showCalendar, setShowCalendar] = useState(false)
+  const [showMeeting, setShowMeeting] = useState(false)
 
   useEffect(() => {
     try {
@@ -91,6 +93,7 @@ function App() {
         onPomodoro={() => setScreen('pomodoro')}
         onCalendar={() => setShowCalendar(true)}
         onSharedTasks={() => setScreen('sharedTasks')}
+        onMeeting={() => setShowMeeting(true)}
       />
     )
     if (screen === 'onboarding') return (
@@ -103,6 +106,12 @@ function App() {
     <>
       {renderScreen()}
       {showCalendar && <CalendarSheet onClose={() => setShowCalendar(false)} />}
+      {showMeeting && (
+        <MeetingSheet
+          onClose={() => setShowMeeting(false)}
+          onConfirm={newTasks => { setTasks(prev => [...prev, ...newTasks]); setShowMeeting(false); setScreen('tasks') }}
+        />
+      )}
     </>
   )
 }
