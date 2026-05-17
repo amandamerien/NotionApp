@@ -182,7 +182,9 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
   const [calendarSync, setCalendarSync] = useState(false)
   const [date, setDate] = useState(task?.date || '')
   const [showGroupPicker, setShowGroupPicker] = useState(false)
-  const [selectedMembers, setSelectedMembers] = useState(task?.members || [])
+  const [selectedMembers, setSelectedMembers] = useState(
+    (task?.members || []).map(m => typeof m === 'string' ? m : m.id)
+  )
   const [draftMembers, setDraftMembers] = useState([])
   const [showDatePicker, setShowDatePicker] = useState(false)
   const [reminder, setReminder] = useState(task?.reminder || '15 min antes')
@@ -194,12 +196,13 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
   const isTeam = task?.type === 'team' || task?.shared === true
 
   function handleSave() {
-    if (onSave) onSave({ ...task, title: titleValue, description, done, date, members: selectedMembers, reminder, category })
+    const memberObjects = selectedMembers.map(id => GROUP_PEOPLE.find(p => p.id === id)).filter(Boolean)
+    if (onSave) onSave({ ...task, title: titleValue, description, done, date, members: memberObjects, reminder, category })
     onClose()
   }
 
   function openGroupPicker() {
-    setDraftMembers([...selectedMembers])
+    setDraftMembers(selectedMembers.map(m => typeof m === 'string' ? m : m.id))
     setShowGroupPicker(true)
   }
 
