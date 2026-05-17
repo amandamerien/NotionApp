@@ -537,7 +537,17 @@ export default function NewTask({ onClose, onConfirm }) {
               </div>
             )}
 
-            {isReady && (
+            {isReady && generatedTasks.length === 0 && (
+              <div className="nt-stopped-btns">
+                <p className="nt-no-tasks-msg">Não detectei tarefas. Tente novamente.</p>
+                <button className="nt-falar-btn" type="button" onClick={handleFalar}>
+                  <MicIcon />
+                  <span>Falar</span>
+                </button>
+              </div>
+            )}
+
+            {isReady && generatedTasks.length > 0 && (
               <>
                 <button className="nt-add-btn" type="button">
                   <PlusIcon />

@@ -524,6 +524,16 @@
   gap: 8px;
 }
 
+.nt-no-tasks-msg {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 15px;
+  color: #78736f;
+  margin: 0;
+  white-space: nowrap;
+}
+
 .nt-falar-btn {
   display: flex;
   align-items: center;
