@@ -157,12 +157,13 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
   const [done, setDone] = useState(false)
   const [description, setDescription] = useState(task?.description || '')
   const [calendarSync, setCalendarSync] = useState(false)
+  const [date, setDate] = useState(task?.date || '')
 
   const s = CATEGORY_STYLES[task?.category] || CATEGORY_STYLES.trabalho
   const isTeam = task?.type === 'team' || task?.shared === true
 
   function handleSave() {
-    if (onSave) onSave({ ...task, description, done })
+    if (onSave) onSave({ ...task, description, done, date })
     onClose()
   }
 
@@ -204,15 +205,21 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
           {/* Info rows — each is its own bordered card */}
           <div className="td-rows">
             {/* Data */}
-            <div className="td-row-card">
+            <div className="td-row-card td-row-card--date">
               <div className="td-row-left">
                 <CalendarBlankIcon />
                 <span className="td-row-label">Data</span>
               </div>
               <div className="td-row-right">
-                <span className="td-row-value">{formatDate(task?.date)}</span>
+                <span className="td-row-value">{formatDate(date)}</span>
                 <CaretRightIcon />
               </div>
+              <input
+                type="date"
+                className="td-date-input"
+                value={date}
+                onChange={e => setDate(e.target.value)}
+              />
             </div>
 
             {/* Lembrete */}
