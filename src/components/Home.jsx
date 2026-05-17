@@ -137,10 +137,6 @@ export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks, o
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2.5 4.5H13.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M2.5 8H13.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M2.5 11.5H8.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/></svg>
                       <span>Minhas tarefas</span>
                     </button>
-                    <button className="home-menu-item" type="button" onClick={() => { setShowMenu(false); onPomodoro && onPomodoro() }}>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 14C11.0376 14 13.5 11.5376 13.5 8.5C13.5 5.46243 11.0376 3 8 3C4.96243 3 2.5 5.46243 2.5 8.5C2.5 11.5376 4.96243 14 8 14Z" stroke="#242320" strokeLinecap="round" strokeLinejoin="round"/><path d="M8 8.5L10.5 6" stroke="#242320" strokeLinecap="round" strokeLinejoin="round"/><path d="M6.5 1H9.5" stroke="#242320" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                      <span>Pomodoro</span>
-                    </button>
                     <button className="home-menu-item home-menu-item--danger" type="button" onClick={() => setShowMenu(false)}>
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 14H3C2.72386 14 2.5 13.7761 2.5 13.5V2.5C2.5 2.22386 2.72386 2 3 2H6" stroke="#b94040" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M10.5 11L13.5 8L10.5 5" stroke="#b94040" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M13.5 8H6" stroke="#b94040" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       <span>Sair</span>
