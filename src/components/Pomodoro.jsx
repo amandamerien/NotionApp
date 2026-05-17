@@ -266,7 +266,7 @@ export default function Pomodoro({ onClose }) {
 
           {/* Timer */}
           <div className="pomo-timer">
-            <svg ref={svgRef} width="288" height="288" viewBox="0 0 288 288" style={{ display: 'block' }}>
+            <svg ref={svgRef} width="288" height="288" viewBox="0 0 288 288" style={{ display: 'block', touchAction: 'none', userSelect: 'none' }}>
               <defs>
                 <linearGradient id="ring-fade" x1="264" y1="172" x2="125" y2="12" gradientUnits="userSpaceOnUse">
                   <stop stopColor="white" stopOpacity="0"/>
