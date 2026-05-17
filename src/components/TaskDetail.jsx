@@ -155,6 +155,8 @@ function AvatarBubble({ children }) {
 
 export default function TaskDetail({ task, onClose, onDelete, onSave }) {
   const [done, setDone] = useState(false)
+  const [titleValue, setTitleValue] = useState(task?.title || '')
+  const [editingTitle, setEditingTitle] = useState(false)
   const [description, setDescription] = useState(task?.description || '')
   const [calendarSync, setCalendarSync] = useState(false)
   const [date, setDate] = useState(task?.date || '')
@@ -163,7 +165,7 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
   const isTeam = task?.type === 'team' || task?.shared === true
 
   function handleSave() {
-    if (onSave) onSave({ ...task, description, done, date })
+    if (onSave) onSave({ ...task, title: titleValue, description, done, date })
     onClose()
   }
 
@@ -197,9 +199,23 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
             >
               {done && <CheckIcon />}
             </button>
-            <h1 className={`td-title${done ? ' td-title--done' : ''}`}>
-              {task?.title || 'Tarefa'}
-            </h1>
+            {editingTitle ? (
+              <input
+                className={`td-title-input${done ? ' td-title--done' : ''}`}
+                value={titleValue}
+                onChange={e => setTitleValue(e.target.value)}
+                onBlur={() => setEditingTitle(false)}
+                onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); setEditingTitle(false) } }}
+                autoFocus
+              />
+            ) : (
+              <h1
+                className={`td-title${done ? ' td-title--done' : ''}`}
+                onDoubleClick={() => setEditingTitle(true)}
+              >
+                {titleValue || 'Tarefa'}
+              </h1>
+            )}
           </div>
 
           {/* Info rows — each is its own bordered card */}

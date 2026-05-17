@@ -101,6 +101,24 @@
   transition: color 0.15s;
 }
 
+.td-title-input {
+  font-family: 'Geist', 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 27px;
+  color: #000;
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid #7237ae;
+  background: transparent;
+  outline: none;
+  padding: 0 0 2px;
+  caret-color: #7237ae;
+}
+
 .td-title--done {
   text-decoration: line-through;
   color: #b0ada9;
@@ -258,8 +276,8 @@
 .td-description {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 16px;
+  line-height: 22px;
   color: #5f5b57;
   background: #f7f7f5;
   border: none;
