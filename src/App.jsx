@@ -80,6 +80,7 @@ function App() {
         onTaskClick={handleTaskClick}
         onPomodoro={() => setScreen('pomodoro')}
         onSharedTasks={() => setScreen('sharedTasks')}
+        onHome={() => setScreen('home')}
       />
     )
     if (screen === 'sharedTasks') return (

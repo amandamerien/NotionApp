@@ -175,7 +175,7 @@ function CheckIcon() {
   )
 }
 
-export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => {}, onTaskClick = () => {}, onPomodoro = () => {}, onSharedTasks = () => {} }) {
+export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => {}, onTaskClick = () => {}, onPomodoro = () => {}, onSharedTasks = () => {}, onHome = () => {} }) {
   const today = new Date()
   const todayISO = toISO(today)
   const [selectedDate, setSelectedDate] = useState(todayISO)
@@ -226,12 +226,16 @@ export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => 
               <>
                 <div className="tasks-menu-backdrop" onClick={() => setShowMenu(false)} />
                 <div className="tasks-menu-dropdown">
+                  <button className="tasks-menu-item" type="button" onClick={() => { setShowMenu(false); onHome() }}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 6.5L8 2L14 6.5V13.5C14 13.7761 13.7761 14 13.5 14H10V10H6V14H2.5C2.22386 14 2 13.7761 2 13.5V6.5Z" stroke="#242320" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <span>Início</span>
+                  </button>
                   <button className="tasks-menu-item" type="button" onClick={() => setShowMenu(false)}>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2.5 4.5H13.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M2.5 8H13.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M2.5 11.5H8.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/></svg>
                     <span>Minhas tarefas</span>
                   </button>
                   <button className="tasks-menu-item" type="button" onClick={() => { setShowMenu(false); onPomodoro() }}>
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 14C11.0376 14 13.5 11.5376 13.5 8.5C13.5 5.46243 11.0376 3 8 3C4.96243 3 2.5 5.46243 2.5 8.5C2.5 11.5376 4.96243 14 8 14Z" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M8 8.5L10.5 6" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M6.5 1H9.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 14C11.0376 14 13.5 11.5376 13.5 8.5C13.5 5.46243 11.0376 3 8 3C4.96243 3 2.5 5.46243 2.5 8.5C2.5 11.5376 4.96243 14 8 14Z" stroke="#242320" strokeLinecap="round" strokeLinejoin="round"/><path d="M8 8.5L10.5 6" stroke="#242320" strokeLinecap="round" strokeLinejoin="round"/><path d="M6.5 1H9.5" stroke="#242320" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <span>Pomodoro</span>
                   </button>
                 </div>
