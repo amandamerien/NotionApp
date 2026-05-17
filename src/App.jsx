@@ -12,7 +12,7 @@ import './App.css'
 
 function loadTasks() {
   try {
-    const saved = sessionStorage.getItem('notion-pulse-tasks')
+    const saved = localStorage.getItem('notion-pulse-tasks')
     return saved ? JSON.parse(saved) : []
   } catch {
     return []
@@ -27,7 +27,7 @@ function App() {
 
   useEffect(() => {
     try {
-      sessionStorage.setItem('notion-pulse-tasks', JSON.stringify(tasks))
+      localStorage.setItem('notion-pulse-tasks', JSON.stringify(tasks))
     } catch {}
   }, [tasks])
 
