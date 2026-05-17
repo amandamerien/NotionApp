@@ -486,7 +486,6 @@
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  overflow: hidden;
   border: 2.5px solid transparent;
   transition: border-color 0.15s;
   box-sizing: border-box;
@@ -502,16 +501,18 @@
   object-fit: cover;
   border-radius: 50%;
   display: block;
+  overflow: hidden;
 }
 
 .td-group-check {
   position: absolute;
-  bottom: 2px;
-  right: 2px;
+  top: -2px;
+  right: -2px;
   width: 20px;
   height: 20px;
   border-radius: 50%;
   background: #7237ae;
+  border: 2px solid #fff;
   display: flex;
   align-items: center;
   justify-content: center;
