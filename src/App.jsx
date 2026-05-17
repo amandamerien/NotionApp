@@ -24,6 +24,12 @@ function App() {
   const [tasks, setTasks] = useState(loadTasks)
   const [selectedTask, setSelectedTask] = useState(null)
   const [showCalendar, setShowCalendar] = useState(false)
+  const [typedText, setTypedText] = useState('')
+
+  function handleTyped(text) {
+    setTypedText(text)
+    setScreen('newTask')
+  }
 
   useEffect(() => {
     try {
@@ -68,8 +74,9 @@ function App() {
     )
     if (screen === 'newTask') return (
       <NewTask
-        onClose={() => setScreen(tasks.length > 0 ? 'tasks' : 'home')}
-        onConfirm={handleConfirm}
+        onClose={() => { setTypedText(''); setScreen(tasks.length > 0 ? 'tasks' : 'home') }}
+        onConfirm={(t) => { setTypedText(''); handleConfirm(t) }}
+        initialText={typedText || undefined}
       />
     )
     if (screen === 'tasks') return (
@@ -81,6 +88,7 @@ function App() {
         onPomodoro={() => setScreen('pomodoro')}
         onSharedTasks={() => setScreen('sharedTasks')}
         onHome={() => setScreen('home')}
+        onTyped={handleTyped}
       />
     )
     if (screen === 'sharedTasks') return (
@@ -93,6 +101,7 @@ function App() {
         onCalendar={() => setShowCalendar(true)}
         onSharedTasks={() => setScreen('sharedTasks')}
         onTasks={() => setScreen('tasks')}
+        onTyped={handleTyped}
       />
     )
     if (screen === 'onboarding') return (

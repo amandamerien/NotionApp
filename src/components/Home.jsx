@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import avatarImg from '../assets/avatar-image.svg'
 import amandaImg from '../assets/amanda.svg'
 import actionIconPurple from '../assets/action-icon-purple.svg'
@@ -50,6 +50,15 @@ function UsersIcon() {
 }
 
 
+function SendIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M3 8H13" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M9 4L13 8L9 12" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  )
+}
+
 function PlusIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -84,8 +93,19 @@ function FeatureItem({ icon, title, subtitle, onClick }) {
   )
 }
 
-export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks, onTasks }) {
+export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks, onTasks, onTyped }) {
   const [showMenu, setShowMenu] = useState(false)
+  const [promptText, setPromptText] = useState('')
+  const promptInputRef = useRef(null)
+
+  function handlePromptAreaClick() {
+    promptInputRef.current?.focus()
+  }
+
+  function handlePromptSubmit() {
+    const t = promptText.trim()
+    if (t) { onTyped && onTyped(t); setPromptText('') }
+  }
   return (
     <div className="home">
       <div className="home-top">
@@ -177,16 +197,30 @@ export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks, o
         </div>
 
         <div className="home-prompt-bar">
-          <div className="home-prompt-card">
-            <p className="home-prompt-text">Conte o que precisa organizar hoje</p>
+          <div className="home-prompt-card" onClick={handlePromptAreaClick}>
+            <input
+              ref={promptInputRef}
+              className="home-prompt-input"
+              value={promptText}
+              onChange={e => setPromptText(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && handlePromptSubmit()}
+              placeholder="Conte o que precisa organizar hoje"
+            />
             <div className="home-prompt-actions">
-              <button className="home-prompt-add" type="button">
+              <button className="home-prompt-add" type="button" onClick={e => e.stopPropagation()}>
                 <PlusIcon />
               </button>
-              <button className="home-prompt-speak" type="button" onClick={onFalar}>
-                <MicrophoneIcon color="white" />
-                <span>Falar</span>
-              </button>
+              {promptText.trim() ? (
+                <button className="home-prompt-speak" type="button" onClick={e => { e.stopPropagation(); handlePromptSubmit() }}>
+                  <SendIcon />
+                  <span>Enviar</span>
+                </button>
+              ) : (
+                <button className="home-prompt-speak" type="button" onClick={e => { e.stopPropagation(); onFalar && onFalar() }}>
+                  <MicrophoneIcon color="white" />
+                  <span>Falar</span>
+                </button>
+              )}
             </div>
           </div>
         </div>

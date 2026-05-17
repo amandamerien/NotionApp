@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import avatarImg from '../assets/avatar-image.svg'
 import calendarDotsImg from '../assets/CalendarDots.svg'
 import './Tasks.css'
@@ -90,6 +90,15 @@ function PlusIcon({ color = '#242320' }) {
   )
 }
 
+function SendIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M3 8H13" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M9 4L13 8L9 12" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  )
+}
+
 function MicIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -175,12 +184,19 @@ function CheckIcon() {
   )
 }
 
-export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => {}, onTaskClick = () => {}, onPomodoro = () => {}, onSharedTasks = () => {}, onHome = () => {} }) {
+export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => {}, onTaskClick = () => {}, onPomodoro = () => {}, onSharedTasks = () => {}, onHome = () => {}, onTyped }) {
   const today = new Date()
   const todayISO = toISO(today)
   const [selectedDate, setSelectedDate] = useState(todayISO)
   const [completed, setCompleted] = useState(new Set())
   const [showMenu, setShowMenu] = useState(false)
+  const [promptText, setPromptText] = useState('')
+  const promptInputRef = useRef(null)
+
+  function handlePromptSubmit() {
+    const t = promptText.trim()
+    if (t) { onTyped && onTyped(t); setPromptText('') }
+  }
 
   function toggleComplete(key) {
     setCompleted(prev => {
@@ -375,16 +391,30 @@ export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => 
 
       {/* Prompt bar */}
       <div className="tasks-prompt-bar">
-        <div className="tasks-prompt-card">
-          <p className="tasks-prompt-text">Conte o que precisa organizar hoje</p>
+        <div className="tasks-prompt-card" onClick={() => promptInputRef.current?.focus()}>
+          <input
+            ref={promptInputRef}
+            className="tasks-prompt-input"
+            value={promptText}
+            onChange={e => setPromptText(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && handlePromptSubmit()}
+            placeholder="Conte o que precisa organizar hoje"
+          />
           <div className="tasks-prompt-actions">
-            <button className="tasks-prompt-add" type="button" onClick={onFalar}>
+            <button className="tasks-prompt-add" type="button" onClick={e => e.stopPropagation()}>
               <PlusIcon />
             </button>
-            <button className="tasks-prompt-speak" type="button" onClick={onFalar}>
-              <MicIcon />
-              <span>Falar</span>
-            </button>
+            {promptText.trim() ? (
+              <button className="tasks-prompt-speak" type="button" onClick={e => { e.stopPropagation(); handlePromptSubmit() }}>
+                <SendIcon />
+                <span>Enviar</span>
+              </button>
+            ) : (
+              <button className="tasks-prompt-speak" type="button" onClick={e => { e.stopPropagation(); onFalar() }}>
+                <MicIcon />
+                <span>Falar</span>
+              </button>
+            )}
           </div>
         </div>
       </div>

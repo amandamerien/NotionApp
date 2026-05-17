@@ -629,14 +629,22 @@
               0px 2px 2px rgba(95, 91, 87, 0.1);
 }
 
-.tasks-prompt-text {
+.tasks-prompt-input {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
   color: #242320;
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 0;
   margin: 0;
-  white-space: nowrap;
+}
+
+.tasks-prompt-input::placeholder {
+  color: #9e9a97;
 }
 
 .tasks-prompt-actions {

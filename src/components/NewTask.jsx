@@ -231,14 +231,15 @@ const CHUNK_DURATION = 4000
 
 // mode: 'recording' | 'thinking' | 'ready'
 
-export default function NewTask({ onClose, onConfirm }) {
-  const [transcript, setTranscript] = useState('')
+export default function NewTask({ onClose, onConfirm, initialText }) {
+  const [transcript, setTranscript] = useState(initialText || '')
   const [listening, setListening] = useState(false)
   const [processing, setProcessing] = useState(false)
-  const [mode, setMode] = useState('recording')
+  const [mode, setMode] = useState(initialText ? 'thinking' : 'recording')
   const [generatedTasks, setGeneratedTasks] = useState([])
   const [seconds, setSeconds] = useState(0)
   const [error, setError] = useState('')
+  const isTextMode = !!initialText
 
   const mediaRecorderRef = useRef(null)
   const streamRef = useRef(null)
@@ -248,6 +249,25 @@ export default function NewTask({ onClose, onConfirm }) {
   const sessionRef = useRef(0)
   const transcriptRef = useRef('')
   const whisperPendingRef = useRef(0)
+
+  // ── Text mode processing ─────────────────────────────────────────
+  async function processText(text) {
+    const todayISO = localISO(new Date())
+    let tasks = []
+    try {
+      tasks = await generateTasksWithGPT(text, todayISO)
+    } catch (_) {
+      tasks = []
+    }
+    if (tasks.length === 0) {
+      const sentences = text.split(/[.!?;]+/).map(s => s.trim()).filter(s => s.length > 3)
+      tasks = sentences.length > 0
+        ? sentences.map(s => ({ title: s, time: null, date: todayISO, category: 'trabalho' }))
+        : [{ title: text.trim(), time: null, date: todayISO, category: 'trabalho' }]
+    }
+    setGeneratedTasks(tasks)
+    setMode('ready')
+  }
 
   // ── Whisper chunked (transcrição em tempo real) ──────────────────
   function getBestMimeType() {
@@ -341,8 +361,13 @@ export default function NewTask({ onClose, onConfirm }) {
   useEffect(() => {
     sessionRef.current += 1
     stoppedRef.current = false
-    startRecording()
-    timerRef.current = setInterval(() => setSeconds(s => s + 1), 1000)
+    if (initialText) {
+      transcriptRef.current = initialText
+      processText(initialText)
+    } else {
+      startRecording()
+      timerRef.current = setInterval(() => setSeconds(s => s + 1), 1000)
+    }
     return () => {
       sessionRef.current += 1
       stoppedRef.current = true
@@ -458,10 +483,14 @@ export default function NewTask({ onClose, onConfirm }) {
             <XIcon />
           </button>
           <div className="nt-listening">
-            <div className={`nt-listening-dot${!isRecording ? ' nt-listening-dot--off' : ''}`} />
-            <span className="nt-listening-text" style={{ color: isRecording ? '#14832b' : '#78736f' }}>
-              {isRecording ? 'Estou ouvindo' : 'Pausado'}
-            </span>
+            {!isTextMode && (
+              <>
+                <div className={`nt-listening-dot${!isRecording ? ' nt-listening-dot--off' : ''}`} />
+                <span className="nt-listening-text" style={{ color: isRecording ? '#14832b' : '#78736f' }}>
+                  {isRecording ? 'Estou ouvindo' : 'Pausado'}
+                </span>
+              </>
+            )}
           </div>
           <div className="nt-header-spacer" />
         </header>
