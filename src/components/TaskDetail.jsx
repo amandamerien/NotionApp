@@ -180,12 +180,14 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
   const [selectedMembers, setSelectedMembers] = useState(task?.members || [])
   const [draftMembers, setDraftMembers] = useState([])
   const [showDatePicker, setShowDatePicker] = useState(false)
+  const [reminder, setReminder] = useState(task?.reminder || '15 min antes')
+  const [showReminderPicker, setShowReminderPicker] = useState(false)
 
   const s = CATEGORY_STYLES[task?.category] || CATEGORY_STYLES.trabalho
   const isTeam = task?.type === 'team' || task?.shared === true
 
   function handleSave() {
-    if (onSave) onSave({ ...task, title: titleValue, description, done, date, members: selectedMembers })
+    if (onSave) onSave({ ...task, title: titleValue, description, done, date, members: selectedMembers, reminder })
     onClose()
   }
 
@@ -267,13 +269,13 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
             </div>
 
             {/* Lembrete */}
-            <div className="td-row-card">
+            <div className="td-row-card" style={{ cursor: 'pointer' }} onClick={() => setShowReminderPicker(true)}>
               <div className="td-row-left">
                 <BellSimpleIcon />
                 <span className="td-row-label">Lembrete</span>
               </div>
               <div className="td-row-right">
-                <span className="td-row-value">{task?.time || '15 min antes'}</span>
+                <span className={`td-row-value${reminder === 'Nenhum' ? ' td-row-value--muted' : ''}`}>{reminder}</span>
                 <CaretRightIcon />
               </div>
             </div>
@@ -372,6 +374,35 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
           </button>
         </div>
       </div>
+
+      {/* Reminder Picker Sheet */}
+      {showReminderPicker && (
+        <div className="td-reminder-overlay" onClick={() => setShowReminderPicker(false)}>
+          <div className="td-reminder-sheet" onClick={e => e.stopPropagation()}>
+            <div className="td-group-handle-row">
+              <div className="td-group-handle-pill" />
+            </div>
+            <div className="td-reminder-body">
+              <h2 className="td-group-heading">Lembrete</h2>
+              {['Nenhum', '5 min antes', '15 min antes', '30 min antes', '1 hora antes', '2 horas antes', '1 dia antes'].map(opt => (
+                <button
+                  key={opt}
+                  type="button"
+                  className={`td-reminder-option${reminder === opt ? ' td-reminder-option--selected' : ''}`}
+                  onClick={() => { setReminder(opt); setShowReminderPicker(false) }}
+                >
+                  <span>{opt}</span>
+                  {reminder === opt && (
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                      <path d="M3.5 9L7.5 13L14.5 5.5" stroke="#7237ae" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Date Picker Sheet */}
       {showDatePicker && (
