@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './TaskDetail.css'
+import DatePickerSheet from './DatePickerSheet'
 import man1Img from '../assets/man_1.svg'
 import man2Img from '../assets/man_2.svg'
 import man3Img from '../assets/man_3.svg'
@@ -178,6 +179,7 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
   const [showGroupPicker, setShowGroupPicker] = useState(false)
   const [selectedMembers, setSelectedMembers] = useState(task?.members || [])
   const [draftMembers, setDraftMembers] = useState([])
+  const [showDatePicker, setShowDatePicker] = useState(false)
 
   const s = CATEGORY_STYLES[task?.category] || CATEGORY_STYLES.trabalho
   const isTeam = task?.type === 'team' || task?.shared === true
@@ -253,7 +255,7 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
           {/* Info rows — each is its own bordered card */}
           <div className="td-rows">
             {/* Data */}
-            <div className="td-row-card td-row-card--date">
+            <div className="td-row-card" style={{ cursor: 'pointer' }} onClick={() => setShowDatePicker(true)}>
               <div className="td-row-left">
                 <CalendarBlankIcon />
                 <span className="td-row-label">Data</span>
@@ -262,12 +264,6 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
                 <span className="td-row-value">{formatDate(date)}</span>
                 <CaretRightIcon />
               </div>
-              <input
-                type="date"
-                className="td-date-input"
-                value={date}
-                onChange={e => setDate(e.target.value)}
-              />
             </div>
 
             {/* Lembrete */}
@@ -376,6 +372,15 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
           </button>
         </div>
       </div>
+
+      {/* Date Picker Sheet */}
+      {showDatePicker && (
+        <DatePickerSheet
+          value={date}
+          onConfirm={iso => { setDate(iso); setShowDatePicker(false) }}
+          onClose={() => setShowDatePicker(false)}
+        />
+      )}
 
       {/* Group Picker Sheet */}
       {showGroupPicker && (

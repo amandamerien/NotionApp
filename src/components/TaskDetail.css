@@ -146,19 +146,6 @@
   align-items: flex-start;
 }
 
-.td-row-card--date {
-  position: relative;
-  overflow: hidden;
-}
-
-.td-date-input {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-}
 
 .td-row-left {
   display: flex;

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './MeetingSheet.css'
+import DatePickerSheet from './DatePickerSheet'
 
 function CalendarIcon() {
   return (
@@ -63,6 +64,7 @@ export default function MeetingSheet({ onClose, onConfirm }) {
   const [date, setDate] = useState(localISO(new Date()))
   const [time, setTime] = useState('')
   const [phone, setPhone] = useState('')
+  const [showDatePicker, setShowDatePicker] = useState(false)
 
   function handleCreate() {
     if (!name.trim()) return
@@ -102,7 +104,7 @@ export default function MeetingSheet({ onClose, onConfirm }) {
           </div>
 
           {/* Date */}
-          <div className="meeting-row-card">
+          <div className="meeting-row-card" onClick={() => setShowDatePicker(true)} style={{ cursor: 'pointer' }}>
             <div className="meeting-row-left">
               <CalendarIcon />
               <span className="meeting-row-label">Data</span>
@@ -110,13 +112,14 @@ export default function MeetingSheet({ onClose, onConfirm }) {
             <span className={`meeting-row-value${date ? '' : ' meeting-row-value--empty'}`}>
               {formatDisplayDate(date)}
             </span>
-            <input
-              type="date"
-              className="meeting-date-input"
-              value={date}
-              onChange={e => setDate(e.target.value)}
-            />
           </div>
+          {showDatePicker && (
+            <DatePickerSheet
+              value={date}
+              onConfirm={iso => { setDate(iso); setShowDatePicker(false) }}
+              onClose={() => setShowDatePicker(false)}
+            />
+          )}
 
           {/* Time */}
           <div className="meeting-row-card">

@@ -247,6 +247,7 @@ export default function NewTask({ onClose, onConfirm }) {
   const stoppedRef = useRef(false)
   const sessionRef = useRef(0)
   const transcriptRef = useRef('')
+  const whisperPendingRef = useRef(0)
 
   // ── Whisper chunked (transcrição em tempo real) ──────────────────
   function getBestMimeType() {
@@ -262,7 +263,7 @@ export default function NewTask({ onClose, onConfirm }) {
     recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data) }
 
     recorder.onstop = async () => {
-      if (chunks.length === 0 || stoppedRef.current || sessionId !== sessionRef.current) return
+      if (chunks.length === 0 || sessionId !== sessionRef.current) return
       const blob = new Blob(chunks, { type: mimeType })
       if (blob.size < 1500) {
         if (!stoppedRef.current && sessionId === sessionRef.current) recordNextChunk(stream, mimeType, sessionId)
@@ -270,6 +271,7 @@ export default function NewTask({ onClose, onConfirm }) {
       }
 
       setProcessing(true)
+      whisperPendingRef.current++
       try {
         const apiKey = import.meta.env.VITE_OPENAI_API_KEY
         const ext = mimeType.includes('mp4') ? 'mp4' : mimeType.includes('ogg') ? 'ogg' : 'webm'
@@ -307,6 +309,7 @@ export default function NewTask({ onClose, onConfirm }) {
         if (sessionId === sessionRef.current) setError('Erro de conexão. Verifique sua internet.')
       } finally {
         setProcessing(false)
+        whisperPendingRef.current--
       }
 
       if (!stoppedRef.current && sessionId === sessionRef.current) recordNextChunk(stream, mimeType, sessionId)
@@ -354,11 +357,18 @@ export default function NewTask({ onClose, onConfirm }) {
 
   async function handleStop() {
     stoppedRef.current = true
+    if (mediaRecorderRef.current?.state === 'recording') mediaRecorderRef.current.stop()
     recognitionRef.current?.stop()
     clearInterval(timerRef.current)
     setListening(false)
     setProcessing(false)
     setMode('thinking')
+
+    // Wait for any in-flight Whisper requests to finish (they were started before stop)
+    const waitStart = Date.now()
+    while (whisperPendingRef.current > 0 && Date.now() - waitStart < 5000) {
+      await new Promise(r => setTimeout(r, 100))
+    }
 
     const thinkingStart = Date.now()
 
@@ -374,7 +384,7 @@ export default function NewTask({ onClose, onConfirm }) {
     }
 
     const elapsed = Date.now() - thinkingStart
-    if (elapsed < 1200) await new Promise(r => setTimeout(r, 1200 - elapsed))
+    if (elapsed < 800) await new Promise(r => setTimeout(r, 800 - elapsed))
 
     setMode('ready')
   }
