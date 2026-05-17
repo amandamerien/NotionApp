@@ -166,16 +166,20 @@ function formatTime(seconds) {
 
 const PT_DAYS_LONG_GPT = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado']
 
+function localISO(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
 async function generateTasksWithGPT(text, todayISO) {
   const apiKey = import.meta.env.VITE_OPENAI_API_KEY
   if (!apiKey) throw new Error('no-key')
 
-  const todayDate = todayISO || new Date().toISOString().split('T')[0]
+  const todayDate = todayISO || localISO(new Date())
   const todayObj = new Date(todayDate + 'T12:00:00')
   const todayDayName = PT_DAYS_LONG_GPT[todayObj.getDay()]
   const tomorrowDate = new Date(todayObj)
   tomorrowDate.setDate(todayObj.getDate() + 1)
-  const tomorrowISO = tomorrowDate.toISOString().split('T')[0]
+  const tomorrowISO = localISO(tomorrowDate)
 
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
@@ -359,7 +363,7 @@ export default function NewTask({ onClose, onConfirm }) {
     const thinkingStart = Date.now()
 
     if (transcriptRef.current.trim()) {
-      const todayISO = new Date().toISOString().split('T')[0]
+      const todayISO = localISO(new Date())
       try {
         const tasks = await generateTasksWithGPT(transcriptRef.current, todayISO)
         setGeneratedTasks(tasks)
