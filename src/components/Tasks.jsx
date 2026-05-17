@@ -180,6 +180,7 @@ export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => 
   const todayISO = toISO(today)
   const [selectedDate, setSelectedDate] = useState(todayISO)
   const [completed, setCompleted] = useState(new Set())
+  const [showMenu, setShowMenu] = useState(false)
 
   function toggleComplete(key) {
     setCompleted(prev => {
@@ -217,9 +218,26 @@ export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => 
             <TimerIcon />
             <span>Pomodoro</span>
           </button>
-          <button className="tasks-menu-btn" type="button">
-            <ListIcon />
-          </button>
+          <div className="tasks-menu-wrap">
+            <button className="tasks-menu-btn" type="button" onClick={() => setShowMenu(v => !v)}>
+              <ListIcon />
+            </button>
+            {showMenu && (
+              <>
+                <div className="tasks-menu-backdrop" onClick={() => setShowMenu(false)} />
+                <div className="tasks-menu-dropdown">
+                  <button className="tasks-menu-item" type="button" onClick={() => setShowMenu(false)}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2.5 4.5H13.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M2.5 8H13.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M2.5 11.5H8.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/></svg>
+                    <span>Minhas tarefas</span>
+                  </button>
+                  <button className="tasks-menu-item" type="button" onClick={() => { setShowMenu(false); onPomodoro() }}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 14C11.0376 14 13.5 11.5376 13.5 8.5C13.5 5.46243 11.0376 3 8 3C4.96243 3 2.5 5.46243 2.5 8.5C2.5 11.5376 4.96243 14 8 14Z" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M8 8.5L10.5 6" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M6.5 1H9.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/></svg>
+                    <span>Pomodoro</span>
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </header>
 

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import avatarImg from '../assets/avatar-image.svg'
 import amandaImg from '../assets/amanda.svg'
 import actionIconPurple from '../assets/action-icon-purple.svg'
@@ -83,7 +84,8 @@ function FeatureItem({ icon, title, subtitle, onClick }) {
   )
 }
 
-export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks }) {
+export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks, onTasks }) {
+  const [showMenu, setShowMenu] = useState(false)
   return (
     <div className="home">
       <div className="home-top">
@@ -103,9 +105,26 @@ export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks })
               <TimerIcon />
               <span>Pomodoro</span>
             </button>
-            <button className="home-menu-btn" type="button">
-              <ListIcon />
-            </button>
+            <div className="home-menu-wrap">
+              <button className="home-menu-btn" type="button" onClick={() => setShowMenu(v => !v)}>
+                <ListIcon />
+              </button>
+              {showMenu && (
+                <>
+                  <div className="home-menu-backdrop" onClick={() => setShowMenu(false)} />
+                  <div className="home-menu-dropdown">
+                    <button className="home-menu-item" type="button" onClick={() => { setShowMenu(false); onTasks && onTasks() }}>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2.5 4.5H13.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M2.5 8H13.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M2.5 11.5H8.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/></svg>
+                      <span>Minhas tarefas</span>
+                    </button>
+                    <button className="home-menu-item" type="button" onClick={() => { setShowMenu(false); onPomodoro && onPomodoro() }}>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 14C11.0376 14 13.5 11.5376 13.5 8.5C13.5 5.46243 11.0376 3 8 3C4.96243 3 2.5 5.46243 2.5 8.5C2.5 11.5376 4.96243 14 8 14Z" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M8 8.5L10.5 6" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M6.5 1H9.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/></svg>
+                      <span>Pomodoro</span>
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </header>
 

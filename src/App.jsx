@@ -91,6 +91,7 @@ function App() {
         onPomodoro={() => setScreen('pomodoro')}
         onCalendar={() => setShowCalendar(true)}
         onSharedTasks={() => setScreen('sharedTasks')}
+        onTasks={() => setScreen('tasks')}
       />
     )
     if (screen === 'onboarding') return (
