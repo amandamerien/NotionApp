@@ -13,7 +13,7 @@ function daysInMonth(year, month) {
   return new Date(year, month + 1, 0).getDate()
 }
 
-function DrumColumn({ items, selectedIndex, onSelect, flex }) {
+function DrumColumn({ items, selectedIndex, onSelect, flex, align = 'center' }) {
   const ref = useRef()
   const debounceRef = useRef()
   const programmaticRef = useRef(false)
@@ -45,7 +45,7 @@ function DrumColumn({ items, selectedIndex, onSelect, flex }) {
           <div key={`t${i}`} className="dp-item dp-item--pad" />
         ))}
         {items.map((item, i) => (
-          <div key={i} className="dp-item">{item}</div>
+          <div key={i} className="dp-item" style={{ justifyContent: align }}>{item}</div>
         ))}
         {Array.from({ length: PAD }).map((_, i) => (
           <div key={`b${i}`} className="dp-item dp-item--pad" />
@@ -96,18 +96,21 @@ export default function DatePickerSheet({ value, onConfirm, onClose }) {
             selectedIndex={month}
             onSelect={setMonth}
             flex={3}
+            align="flex-end"
           />
           <DrumColumn
             items={days}
             selectedIndex={effectiveDay - 1}
             onSelect={idx => setDay(idx + 1)}
-            flex={1.5}
+            flex={1.2}
+            align="center"
           />
           <DrumColumn
             items={years.map(String)}
             selectedIndex={year - (currentYear - 5)}
             onSelect={idx => setYear(currentYear - 5 + idx)}
             flex={2}
+            align="flex-start"
           />
         </div>
       </div>
