@@ -45,7 +45,6 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 32px 20px 34px;
   box-sizing: border-box;
 }
@@ -101,6 +100,7 @@
   flex-direction: column;
   gap: 9px;
   width: 100%;
+  margin-top: auto;
 }
 
 .shared-label {
@@ -135,8 +135,9 @@
 .shared-actions {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   width: 100%;
+  margin-top: 16px;
 }
 
 .shared-btn-primary {
@@ -180,6 +181,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  margin-top: 24px;
 }
 
 .shared-logo-text {
