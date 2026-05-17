@@ -306,7 +306,7 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
               <div className="td-row-right">
                 {selectedMembers.length > 0 ? (
                   <div className="td-avatar-stack">
-                    {selectedMembers.slice(0, 3).map(id => {
+                    {selectedMembers.slice(0, 2).map(id => {
                       const p = GROUP_PEOPLE.find(x => x.id === id)
                       return p ? (
                         <AvatarBubble key={id}>
@@ -314,8 +314,8 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
                         </AvatarBubble>
                       ) : null
                     })}
-                    {selectedMembers.length > 3 && (
-                      <AvatarBubble><span className="td-avatar-count">+{selectedMembers.length - 3}</span></AvatarBubble>
+                    {selectedMembers.length > 2 && (
+                      <AvatarBubble><span className="td-avatar-count">+{selectedMembers.length - 2}</span></AvatarBubble>
                     )}
                   </div>
                 ) : (
