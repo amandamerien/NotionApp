@@ -151,18 +151,6 @@ export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks })
           />
         </div>
 
-        <button className="home-invite-card" type="button" onClick={onSharedTasks}>
-          <div className="home-invite-avatars">
-            <span className="home-invite-avatar home-invite-avatar--1">A</span>
-            <span className="home-invite-avatar home-invite-avatar--2">+</span>
-          </div>
-          <div className="home-invite-text">
-            <span className="home-invite-title">Convidar amigo</span>
-            <span className="home-invite-sub">Organize tarefas juntos</span>
-          </div>
-          <CaretRightIcon />
-        </button>
-
         <div className="home-prompt-bar">
           <div className="home-prompt-card">
             <p className="home-prompt-text">Conte o que precisa organizar hoje</p>

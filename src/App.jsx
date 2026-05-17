@@ -79,6 +79,7 @@ function App() {
         onClear={handleClear}
         onTaskClick={handleTaskClick}
         onPomodoro={() => setScreen('pomodoro')}
+        onSharedTasks={() => setScreen('sharedTasks')}
       />
     )
     if (screen === 'sharedTasks') return (

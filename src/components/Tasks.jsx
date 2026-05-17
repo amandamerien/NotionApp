@@ -175,7 +175,7 @@ function CheckIcon() {
   )
 }
 
-export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => {}, onTaskClick = () => {}, onPomodoro = () => {} }) {
+export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => {}, onTaskClick = () => {}, onPomodoro = () => {}, onSharedTasks = () => {} }) {
   const today = new Date()
   const todayISO = toISO(today)
   const [selectedDate, setSelectedDate] = useState(todayISO)
@@ -338,7 +338,7 @@ export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => 
                 <p className="tasks-shared-title">Organize junto</p>
                 <p className="tasks-shared-subtitle">Compartilhe tarefas com quem faz parte da sua rotina.</p>
               </div>
-              <button className="tasks-shared-invite" type="button">
+              <button className="tasks-shared-invite" type="button" onClick={onSharedTasks}>
                 <span>Convidar amigo</span>
                 <ArrowRightIcon />
               </button>
