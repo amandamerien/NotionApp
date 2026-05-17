@@ -168,6 +168,15 @@
   background: #f7f7f5;
 }
 
+.home-menu-item--danger {
+  color: #b94040;
+  background: #fdf2f2;
+}
+
+.home-menu-item--danger:active {
+  background: #fae5e5;
+}
+
 /* Greeting */
 .home-greeting {
   display: flex;

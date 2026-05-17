@@ -157,6 +157,15 @@
   background: #f7f7f5;
 }
 
+.tasks-menu-item--danger {
+  color: #b94040;
+  background: #fdf2f2;
+}
+
+.tasks-menu-item--danger:active {
+  background: #fae5e5;
+}
+
 /* Scrollable content */
 .tasks-content {
   flex: 1;
