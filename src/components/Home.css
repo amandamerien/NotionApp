@@ -352,6 +352,12 @@
               0px 2px 2px 0px rgba(95, 91, 87, 0.1);
 }
 
+.home-prompt-label {
+  display: block;
+  width: 100%;
+  cursor: text;
+}
+
 .home-prompt-input {
   font-family: 'Inter', sans-serif;
   font-weight: 400;

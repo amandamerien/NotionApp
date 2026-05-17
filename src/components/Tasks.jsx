@@ -414,15 +414,18 @@ export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => 
 
       {/* Prompt bar */}
       <div className="tasks-prompt-bar">
-        <div className="tasks-prompt-card" onClick={() => promptInputRef.current?.focus()}>
-          <input
-            ref={promptInputRef}
-            className="tasks-prompt-input"
-            value={promptText}
-            onChange={e => setPromptText(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && handlePromptSubmit()}
-            placeholder="Conte o que precisa organizar hoje"
-          />
+        <div className="tasks-prompt-card">
+          <label htmlFor="tasks-prompt-input" className="tasks-prompt-label">
+            <input
+              id="tasks-prompt-input"
+              ref={promptInputRef}
+              className="tasks-prompt-input"
+              value={promptText}
+              onChange={e => setPromptText(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && handlePromptSubmit()}
+              placeholder="Conte o que precisa organizar hoje"
+            />
+          </label>
           <div className="tasks-prompt-actions">
             <button className="tasks-prompt-add" type="button" onClick={e => e.stopPropagation()}>
               <PlusIcon />

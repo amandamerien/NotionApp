@@ -98,10 +98,6 @@ export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks, o
   const [promptText, setPromptText] = useState('')
   const promptInputRef = useRef(null)
 
-  function handlePromptAreaClick() {
-    promptInputRef.current?.focus()
-  }
-
   function handlePromptSubmit() {
     const t = promptText.trim()
     if (t) { onTyped && onTyped(t); setPromptText('') }
@@ -193,15 +189,18 @@ export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks, o
         </div>
 
         <div className="home-prompt-bar">
-          <div className="home-prompt-card" onClick={handlePromptAreaClick}>
-            <input
-              ref={promptInputRef}
-              className="home-prompt-input"
-              value={promptText}
-              onChange={e => setPromptText(e.target.value)}
-              onKeyDown={e => e.key === 'Enter' && handlePromptSubmit()}
-              placeholder="Conte o que precisa organizar hoje"
-            />
+          <div className="home-prompt-card">
+            <label htmlFor="home-prompt-input" className="home-prompt-label">
+              <input
+                id="home-prompt-input"
+                ref={promptInputRef}
+                className="home-prompt-input"
+                value={promptText}
+                onChange={e => setPromptText(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && handlePromptSubmit()}
+                placeholder="Conte o que precisa organizar hoje"
+              />
+            </label>
             <div className="home-prompt-actions">
               <button className="home-prompt-add" type="button" onClick={e => e.stopPropagation()}>
                 <PlusIcon />
