@@ -124,11 +124,20 @@
   box-sizing: border-box;
 }
 
-.shared-input-placeholder {
+.shared-input {
+  flex: 1;
+  border: none;
+  background: transparent;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 22px;
+  color: #242320;
+  outline: none;
+  min-width: 0;
+}
+
+.shared-input::placeholder {
   color: #78736f;
 }
 

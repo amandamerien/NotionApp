@@ -78,7 +78,13 @@ export default function SharedTasks({ onClose }) {
         <div className="shared-form">
           <p className="shared-label">Convide alguém</p>
           <div className="shared-input-row">
-            <span className="shared-input-placeholder">Nº do Whatsapp</span>
+            <input
+              className="shared-input"
+              type="tel"
+              inputMode="tel"
+              placeholder="Nº do Whatsapp"
+              autoComplete="tel"
+            />
             <WhatsAppIcon />
           </div>
         </div>

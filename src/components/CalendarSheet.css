@@ -14,12 +14,12 @@
   max-width: 390px;
   border-radius: 16px 16px 0 0;
   overflow: hidden;
-  animation: cal-slide-in 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+  animation: cal-slide-in 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes cal-slide-in {
-  from { transform: translateY(100%); }
-  to   { transform: translateY(0); }
+  from { transform: translateY(100%); opacity: 0.6; }
+  to   { transform: translateY(0);    opacity: 1; }
 }
 
 .cal-handle-row {
