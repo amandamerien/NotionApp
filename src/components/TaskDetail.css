@@ -1,0 +1,337 @@
+.td {
+  width: 390px;
+  max-width: 100%;
+  min-height: 100svh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Header */
+.td-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 59px 20px 0;
+  height: 119px;
+  box-sizing: border-box;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.td-header-btn {
+  width: 32px;
+  height: 32px;
+  background: #fff;
+  border: 1px solid #edeceb;
+  border-radius: 122px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.td-header-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+  color: #242320;
+}
+
+/* Body: fills remaining height, space-between top/footer */
+.td-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 32px 20px 34px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.td-top {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Checkbox + title */
+.td-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.td-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #d8d6d3;
+  border-radius: 4px;
+  flex-shrink: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 5px;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.td-checkbox--done {
+  background: #242320;
+  border-color: #242320;
+}
+
+.td-title {
+  font-family: 'Geist', 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 27px;
+  color: #000;
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
+  transition: color 0.15s;
+}
+
+.td-title--done {
+  text-decoration: line-through;
+  color: #b0ada9;
+}
+
+/* Info rows — each is its own card */
+.td-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.td-row-card {
+  border: 1px solid #edeceb;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.td-row-card--desc {
+  align-items: flex-start;
+}
+
+.td-row-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.td-row-card--desc .td-row-left {
+  flex: 1;
+  min-width: 0;
+  align-items: flex-start;
+}
+
+.td-row-label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #000;
+  white-space: nowrap;
+}
+
+.td-row-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.td-row-right--top {
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+.td-row-value {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  color: #000;
+  white-space: nowrap;
+}
+
+.td-row-value--muted {
+  color: #c5c2be;
+  font-weight: 400;
+}
+
+/* Category badge */
+.td-category-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px 4px 8px;
+  border-radius: 9999px;
+  border: 1px solid;
+}
+
+.td-category-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.td-category-badge span {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 14px;
+  white-space: nowrap;
+}
+
+/* Avatar stack (Grupo) */
+.td-avatar-stack {
+  display: flex;
+  align-items: center;
+}
+
+.td-avatar-bubble {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #f7f7f5;
+  border: 1.5px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -5px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.td-avatar-bubble:last-child {
+  margin-right: 0;
+}
+
+.td-avatar-count {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 14px;
+  color: #5f5b57;
+}
+
+/* Description inside the row card */
+.td-desc-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.td-description {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #5f5b57;
+  background: #f7f7f5;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  resize: none;
+  min-height: 72px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.td-description::placeholder {
+  color: #c5c2be;
+}
+
+/* Toggle switch */
+.td-switch {
+  width: 40px;
+  height: 24px;
+  border-radius: 9999px;
+  background: #edeceb;
+  border: none;
+  cursor: pointer;
+  padding: 0 3px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.td-switch--on {
+  background: #242320;
+}
+
+.td-switch-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  flex-shrink: 0;
+}
+
+.td-switch--on .td-switch-thumb {
+  transform: translateX(16px);
+}
+
+/* Footer */
+.td-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 24px;
+}
+
+.td-save-btn {
+  width: 100%;
+  height: 48px;
+  background: #000;
+  border: none;
+  border-radius: 122px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.td-voice-btn {
+  width: 100%;
+  height: 48px;
+  background: #fff;
+  border: 1px solid #edeceb;
+  border-radius: 122px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  color: #242320;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}

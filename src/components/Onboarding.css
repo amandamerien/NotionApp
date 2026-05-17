@@ -1,0 +1,214 @@
+.onboarding {
+  width: 390px;
+  max-width: 100%;
+  min-height: 100svh;
+  background-color: #f7fbff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/* Top */
+.onboarding-top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+}
+
+/* Illustration */
+.onboarding-illustration {
+  width: 100%;
+  height: 289px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7fbff;
+}
+
+.onboarding-illustration-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Container */
+.onboarding-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 0 40px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Content */
+.onboarding-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Header label */
+.onboarding-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+.onboarding-label {
+  font-family: 'Geist', sans-serif;
+  font-size: 12.78px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  color: #00396b;
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+  white-space: nowrap;
+}
+
+/* Description */
+.onboarding-description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.onboarding-title {
+  font-family: 'Geist', sans-serif;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 50px;
+  letter-spacing: -0.4px;
+  color: #002a4f;
+  text-align: center;
+  margin: 0;
+  width: 100%;
+}
+
+.onboarding-mic-inline {
+  width: 36px;
+  height: 36px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-bottom: 4px;
+}
+
+.onboarding-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: #002a4f;
+  text-align: center;
+  margin: 0;
+  width: 100%;
+}
+
+/* Progress bars */
+.onboarding-progress {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.progress-track {
+  width: 24px;
+  height: 4px;
+  border-radius: 9999px;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill {
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  border-radius: 9999px;
+}
+
+.progress-fill--done {
+  width: 100%;
+}
+
+.progress-fill--active {
+  width: 0%;
+  animation: progressFill linear forwards;
+}
+
+@keyframes progressFill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+/* Footer */
+.onboarding-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 0 20px 34px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Google button */
+.onboarding-google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 48px;
+  background-color: #fff;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow: 0px 8px 12px 0px rgba(0, 57, 107, 0.1),
+              0px 2px 2px 0px rgba(0, 57, 107, 0.1);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.084px;
+  color: #000;
+  font-feature-settings: 'ss11' on, 'liga' off, 'calt' off;
+}
+
+.onboarding-google-logo {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+/* Legal */
+.onboarding-legal {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.onboarding-legal-link {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #00396b;
+  text-decoration: none;
+  white-space: nowrap;
+}
