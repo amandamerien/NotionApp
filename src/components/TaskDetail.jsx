@@ -1,5 +1,20 @@
 import { useState } from 'react'
 import './TaskDetail.css'
+import man1Img from '../assets/man_1.svg'
+import man2Img from '../assets/man_2.svg'
+import man3Img from '../assets/man_3.svg'
+import woman1Img from '../assets/woman_1.svg'
+import woman2Img from '../assets/woman_2.svg'
+import woman3Img from '../assets/woman_3.svg'
+
+const GROUP_PEOPLE = [
+  { id: 'man_1', img: man1Img, name: 'Carlos' },
+  { id: 'man_2', img: man2Img, name: 'Lucas' },
+  { id: 'man_3', img: man3Img, name: 'Pedro' },
+  { id: 'woman_1', img: woman1Img, name: 'Ana' },
+  { id: 'woman_2', img: woman2Img, name: 'Julia' },
+  { id: 'woman_3', img: woman3Img, name: 'Maria' },
+]
 
 // ── Icons ─────────────────────────────────────────────────────────────────────
 
@@ -160,13 +175,30 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
   const [description, setDescription] = useState(task?.description || '')
   const [calendarSync, setCalendarSync] = useState(false)
   const [date, setDate] = useState(task?.date || '')
+  const [showGroupPicker, setShowGroupPicker] = useState(false)
+  const [selectedMembers, setSelectedMembers] = useState(task?.members || [])
+  const [draftMembers, setDraftMembers] = useState([])
 
   const s = CATEGORY_STYLES[task?.category] || CATEGORY_STYLES.trabalho
   const isTeam = task?.type === 'team' || task?.shared === true
 
   function handleSave() {
-    if (onSave) onSave({ ...task, title: titleValue, description, done, date })
+    if (onSave) onSave({ ...task, title: titleValue, description, done, date, members: selectedMembers })
     onClose()
+  }
+
+  function openGroupPicker() {
+    setDraftMembers([...selectedMembers])
+    setShowGroupPicker(true)
+  }
+
+  function toggleDraft(id) {
+    setDraftMembers(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
+  }
+
+  function confirmGroupPicker() {
+    setSelectedMembers(draftMembers)
+    setShowGroupPicker(false)
   }
 
   function handleDelete() {
@@ -266,18 +298,25 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
             </div>
 
             {/* Grupo */}
-            <div className="td-row-card">
+            <div className="td-row-card" style={{ cursor: 'pointer' }} onClick={openGroupPicker}>
               <div className="td-row-left">
                 <UsersIcon />
                 <span className="td-row-label">Grupo</span>
               </div>
               <div className="td-row-right">
-                {isTeam ? (
+                {selectedMembers.length > 0 ? (
                   <div className="td-avatar-stack">
-                    {[0, 1, 2].map(i => (
-                      <AvatarBubble key={i}><PersonIcon /></AvatarBubble>
-                    ))}
-                    <AvatarBubble><span className="td-avatar-count">+1</span></AvatarBubble>
+                    {selectedMembers.slice(0, 3).map(id => {
+                      const p = GROUP_PEOPLE.find(x => x.id === id)
+                      return p ? (
+                        <AvatarBubble key={id}>
+                          <img src={p.img} alt={p.name} style={{ width: 26, height: 26, borderRadius: '50%' }} />
+                        </AvatarBubble>
+                      ) : null
+                    })}
+                    {selectedMembers.length > 3 && (
+                      <AvatarBubble><span className="td-avatar-count">+{selectedMembers.length - 3}</span></AvatarBubble>
+                    )}
                   </div>
                 ) : (
                   <span className="td-row-value td-row-value--muted">Nenhum</span>
@@ -337,6 +376,55 @@ export default function TaskDetail({ task, onClose, onDelete, onSave }) {
           </button>
         </div>
       </div>
+
+      {/* Group Picker Sheet */}
+      {showGroupPicker && (
+        <div className="td-group-overlay" onClick={() => setShowGroupPicker(false)}>
+          <div className="td-group-sheet" onClick={e => e.stopPropagation()}>
+            <div className="td-group-handle-row">
+              <div className="td-group-handle-pill" />
+            </div>
+            <div className="td-group-body">
+              <h2 className="td-group-heading">Adicionar ao grupo</h2>
+              <div className="td-group-grid">
+                {GROUP_PEOPLE.map(person => {
+                  const selected = draftMembers.includes(person.id)
+                  return (
+                    <button
+                      key={person.id}
+                      type="button"
+                      className={`td-group-person${selected ? ' td-group-person--selected' : ''}`}
+                      onClick={() => toggleDraft(person.id)}
+                    >
+                      <div className="td-group-avatar-wrap">
+                        <img src={person.img} alt={person.name} className="td-group-avatar-img" />
+                        {selected && (
+                          <div className="td-group-check">
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                              <path d="M2 5L4.2 7.5L8.5 3" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </div>
+                        )}
+                      </div>
+                      <span className="td-group-name">{person.name}</span>
+                    </button>
+                  )
+                })}
+              </div>
+              <button
+                type="button"
+                className="td-group-confirm-btn"
+                onClick={confirmGroupPicker}
+              >
+                Confirmar
+              </button>
+              <button type="button" className="td-group-cancel-btn" onClick={() => setShowGroupPicker(false)}>
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
