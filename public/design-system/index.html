@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notion Pulse — Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-black:     #242320;
+      --color-soft:      #5f5b57;
+      --color-muted:     #78736f;
+      --color-placeholder: #9e9a97;
+      --color-border:    #f0efed;
+      --color-surface:   #edeceb;
+      --color-bg:        #f7f7f5;
+      --color-white:     #ffffff;
+      --color-danger:    #b94040;
+      --color-danger-bg: #fce8e8;
+
+      --radius-sm:   8px;
+      --radius-md:   12px;
+      --radius-lg:   16px;
+      --radius-full: 9999px;
+
+      --shadow-icon: 0px 5px 20px rgba(95,91,87,0.08), 0px 4px 8px rgba(95,91,87,0.10), 0px 2px 2px rgba(95,91,87,0.10);
+      --shadow-card: 0px 2px 8px rgba(95,91,87,0.06);
+      --shadow-toast: 0px 8px 24px rgba(0,0,0,0.10), 0px 2px 6px rgba(0,0,0,0.06);
+
+      --sidebar-w: 240px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--color-bg);
+      color: var(--color-black);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow-y: auto;
+      background: var(--color-white);
+      border-right: 1px solid var(--color-border);
+      padding: 32px 0 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .sidebar-logo {
+      padding: 0 24px 28px;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: 20px;
+    }
+
+    .sidebar-logo-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--color-black);
+      letter-spacing: -0.02em;
+    }
+
+    .sidebar-logo-sub {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--color-muted);
+      margin-top: 2px;
+    }
+
+    .sidebar-group { margin-bottom: 20px; }
+
+    .sidebar-group-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--color-placeholder);
+      padding: 0 24px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .sidebar-link {
+      display: block;
+      padding: 7px 24px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--color-soft);
+      text-decoration: none;
+      border-radius: 0;
+      transition: color 0.1s, background 0.1s;
+    }
+
+    .sidebar-link:hover {
+      color: var(--color-black);
+      background: var(--color-bg);
+    }
+
+    .sidebar-link.active {
+      color: var(--color-black);
+      font-weight: 500;
+    }
+
+    /* ── Main ── */
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      max-width: 860px;
+      padding: 60px 56px 120px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      margin-bottom: 72px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--color-placeholder);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--color-black);
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .hero-desc {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--color-soft);
+      line-height: 1.6;
+      max-width: 500px;
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 72px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--color-black);
+      margin-bottom: 6px;
+    }
+
+    .section-desc {
+      font-size: 13px;
+      color: var(--color-muted);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--color-border);
+      margin-bottom: 72px;
+    }
+
+    /* ── Tokens grid ── */
+    .token-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    .token-card {
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+
+    .token-swatch {
+      height: 56px;
+      width: 100%;
+    }
+
+    .token-info {
+      padding: 10px 12px;
+    }
+
+    .token-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-black);
+    }
+
+    .token-hex {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--color-muted);
+      margin-top: 2px;
+    }
+
+    .token-var {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--color-placeholder);
+      margin-top: 1px;
+    }
+
+    /* ── Typography ── */
+    .type-rows { display: flex; flex-direction: column; gap: 0; }
+
+    .type-row {
+      display: flex;
+      align-items: baseline;
+      gap: 24px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .type-row:last-child { border-bottom: none; }
+
+    .type-meta {
+      width: 180px;
+      flex-shrink: 0;
+    }
+
+    .type-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-placeholder);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .type-spec {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--color-muted);
+      line-height: 1.5;
+    }
+
+    .type-preview { flex: 1; }
+
+    /* ── Spacing ── */
+    .spacing-rows { display: flex; flex-direction: column; gap: 10px; }
+
+    .spacing-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .spacing-bar-wrap { display: flex; align-items: center; gap: 12px; }
+
+    .spacing-bar {
+      height: 20px;
+      background: var(--color-black);
+      border-radius: 3px;
+      opacity: 0.85;
+    }
+
+    .spacing-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--color-muted);
+      min-width: 80px;
+    }
+
+    .spacing-value {
+      font-size: 11px;
+      color: var(--color-soft);
+    }
+
+    /* ── Radius ── */
+    .radius-grid {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .radius-card {
+      background: var(--color-white);
+      box-shadow: var(--shadow-card);
+      width: 100px;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .radius-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-black);
+    }
+
+    .radius-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--color-muted);
+    }
+
+    /* ── Shadows ── */
+    .shadow-grid { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .shadow-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      width: 160px;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .shadow-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-black);
+    }
+
+    .shadow-use {
+      font-size: 10px;
+      color: var(--color-muted);
+    }
+
+    /* ── Components ── */
+    .comp-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .comp-block {}
+
+    .comp-block-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-black);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .comp-preview {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      box-shadow: var(--shadow-card);
+    }
+
+    .comp-preview--col {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .comp-code {
+      margin-top: 10px;
+      background: #1a1917;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #d4d0cc;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+
+    .comp-code .key { color: #7ec8e3; }
+    .comp-code .val { color: #a8d8a8; }
+    .comp-code .str { color: #f0a070; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      transition: opacity 0.15s;
+    }
+
+    .btn:active { opacity: 0.8; }
+
+    .btn--primary {
+      background: var(--color-black);
+      color: var(--color-white);
+      border-radius: var(--radius-full);
+      padding: 12px 20px;
+      font-size: 13px;
+    }
+
+    .btn--secondary {
+      background: var(--color-bg);
+      color: var(--color-black);
+      border-radius: var(--radius-full);
+      padding: 12px 20px;
+      font-size: 13px;
+    }
+
+    .btn--danger {
+      background: var(--color-danger-bg);
+      color: var(--color-danger);
+      border-radius: var(--radius-full);
+      padding: 12px 20px;
+      font-size: 13px;
+    }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--color-soft);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      padding: 12px 20px;
+      font-size: 13px;
+    }
+
+    .btn--icon {
+      background: var(--color-white);
+      color: var(--color-black);
+      border-radius: var(--radius-full);
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      justify-content: center;
+      box-shadow: var(--shadow-icon);
+    }
+
+    /* Feature item */
+    .feature-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--color-bg);
+      border-radius: var(--radius-full);
+      padding: 8px 16px 8px 8px;
+      gap: 16px;
+      width: 320px;
+    }
+
+    .feature-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-icon-box {
+      width: 32px;
+      height: 32px;
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-icon);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .feature-text { display: flex; flex-direction: column; }
+
+    .feature-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-black);
+    }
+
+    .feature-subtitle {
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--color-soft);
+    }
+
+    /* Card */
+    .card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+
+    .card-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      gap: 12px;
+    }
+
+    .card-row-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-icon {
+      width: 30px;
+      height: 30px;
+      background: var(--color-bg);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-row-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-black);
+    }
+
+    .card-row-value {
+      font-size: 12px;
+      color: var(--color-muted);
+    }
+
+    .card-separator {
+      height: 1px;
+      background: var(--color-border);
+      margin: 0 16px;
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border-radius: var(--radius-full);
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .badge--default { background: var(--color-bg); color: var(--color-black); }
+    .badge--success { background: #e6f5ec; color: #256b3b; }
+    .badge--warning { background: #fef7e0; color: #7a5c00; }
+    .badge--danger  { background: var(--color-danger-bg); color: var(--color-danger); }
+    .badge--purple  { background: #f0eaff; color: #6b21a8; }
+
+    /* Toggle */
+    .toggle {
+      width: 44px;
+      height: 26px;
+      border-radius: var(--radius-full);
+      background: #e0dedd;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .toggle--on { background: var(--color-black); }
+
+    .toggle-knob {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 20px;
+      height: 20px;
+      border-radius: var(--radius-full);
+      background: var(--color-white);
+      box-shadow: 0px 1px 4px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+    }
+
+    .toggle--on .toggle-knob { transform: translateX(18px); }
+
+    /* Input */
+    .input-wrap {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 300px;
+    }
+
+    .input-wrap input {
+      border: none;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--color-black);
+      background: transparent;
+      flex: 1;
+    }
+
+    .input-wrap input::placeholder { color: var(--color-black); }
+
+    /* Prompt bar */
+    .prompt-bar {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 14px 14px 14px 16px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 320px;
+    }
+
+    .prompt-input {
+      border: none;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: var(--color-black);
+      background: transparent;
+      width: 100%;
+    }
+
+    .prompt-input::placeholder { color: var(--color-black); }
+
+    .prompt-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Toast */
+    .toast-demo {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 14px 14px 14px 16px;
+      box-shadow: var(--shadow-toast);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      width: 320px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .toast-progress-demo {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      width: 55%;
+    }
+
+    .toast-body-demo { flex: 1; }
+
+    .toast-title-demo {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-black);
+    }
+
+    .toast-msg-demo {
+      font-size: 12px;
+      color: var(--color-muted);
+      margin-top: 2px;
+    }
+
+    /* Overview cards */
+    .overview-cards {
+      display: flex;
+      gap: 10px;
+    }
+
+    .overview-card {
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: var(--shadow-card);
+      min-width: 90px;
+    }
+
+    .overview-num {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--color-black);
+      line-height: 1;
+    }
+
+    .overview-label {
+      font-size: 11px;
+      color: var(--color-muted);
+    }
+
+    /* Avatar */
+    .avatar-stack { display: flex; align-items: center; }
+
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-full);
+      border: 2px solid var(--color-white);
+      background: var(--color-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-soft);
+      margin-left: -6px;
+      flex-shrink: 0;
+    }
+
+    .avatar:first-child { margin-left: 0; }
+
+    .avatar--more {
+      background: var(--color-bg);
+      color: var(--color-muted);
+      font-size: 9px;
+    }
+
+    /* Category tags */
+    .category-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .cat {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border-radius: var(--radius-full);
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .cat-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: var(--radius-full);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; padding: 32px 20px 80px; }
+    }
+
+    /* Code inline */
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: var(--color-soft);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-title">Notion Pulse</div>
+    <div class="sidebar-logo-sub">Design System · v1.0</div>
+  </div>
+
+  <div class="sidebar-group">
+    <div class="sidebar-group-label">Introdução</div>
+    <a class="sidebar-link active" href="#overview">Visão geral</a>
+    <a class="sidebar-link" href="#tokens">Tokens</a>
+  </div>
+
+  <div class="sidebar-group">
+    <div class="sidebar-group-label">Fundamentos</div>
+    <a class="sidebar-link" href="#colors">Cores</a>
+    <a class="sidebar-link" href="#typography">Tipografia</a>
+    <a class="sidebar-link" href="#spacing">Espaçamento</a>
+    <a class="sidebar-link" href="#radius">Border Radius</a>
+    <a class="sidebar-link" href="#shadows">Sombras</a>
+  </div>
+
+  <div class="sidebar-group">
+    <div class="sidebar-group-label">Componentes</div>
+    <a class="sidebar-link" href="#buttons">Botões</a>
+    <a class="sidebar-link" href="#inputs">Inputs</a>
+    <a class="sidebar-link" href="#cards">Cards</a>
+    <a class="sidebar-link" href="#badges">Badges</a>
+    <a class="sidebar-link" href="#feature-items">Feature Items</a>
+    <a class="sidebar-link" href="#overview-cards">Overview Cards</a>
+    <a class="sidebar-link" href="#toast">Toast</a>
+    <a class="sidebar-link" href="#toggle">Toggle</a>
+    <a class="sidebar-link" href="#categories">Categorias</a>
+    <a class="sidebar-link" href="#avatars">Avatares</a>
+  </div>
+</nav>
+
+<!-- Main -->
+<main class="main">
+
+  <!-- Hero -->
+  <section id="overview" class="hero">
+    <p class="hero-eyebrow">Design System</p>
+    <h1 class="hero-title">Notion Pulse</h1>
+    <p class="hero-desc">Documentação visual dos tokens, componentes e padrões de design usados no app. Baseado em Inter, com uma paleta neutra quente e mobile-first.</p>
+  </section>
+
+  <!-- Colors -->
+  <section id="colors" class="section">
+    <h2 class="section-title">Cores</h2>
+    <p class="section-desc">Paleta baseada em tons neutros quentes. Sem cores vivas — energia vem da tipografia e hierarquia.</p>
+    <div class="token-grid">
+      <div class="token-card">
+        <div class="token-swatch" style="background:#242320"></div>
+        <div class="token-info">
+          <div class="token-name">Black</div>
+          <div class="token-hex">#242320</div>
+          <div class="token-var">--color-black</div>
+        </div>
+      </div>
+      <div class="token-card">
+        <div class="token-swatch" style="background:#5f5b57"></div>
+        <div class="token-info">
+          <div class="token-name">Soft</div>
+          <div class="token-hex">#5f5b57</div>
+          <div class="token-var">--color-soft</div>
+        </div>
+      </div>
+      <div class="token-card">
+        <div class="token-swatch" style="background:#78736f"></div>
+        <div class="token-info">
+          <div class="token-name">Muted</div>
+          <div class="token-hex">#78736f</div>
+          <div class="token-var">--color-muted</div>
+        </div>
+      </div>
+      <div class="token-card">
+        <div class="token-swatch" style="background:#9e9a97"></div>
+        <div class="token-info">
+          <div class="token-name">Placeholder</div>
+          <div class="token-hex">#9e9a97</div>
+          <div class="token-var">--color-placeholder</div>
+        </div>
+      </div>
+      <div class="token-card">
+        <div class="token-swatch" style="background:#f7f7f5; border:1px solid #f0efed"></div>
+        <div class="token-info">
+          <div class="token-name">Background</div>
+          <div class="token-hex">#f7f7f5</div>
+          <div class="token-var">--color-bg</div>
+        </div>
+      </div>
+      <div class="token-card">
+        <div class="token-swatch" style="background:#edeceb"></div>
+        <div class="token-info">
+          <div class="token-name">Surface</div>
+          <div class="token-hex">#edeceb</div>
+          <div class="token-var">--color-surface</div>
+        </div>
+      </div>
+      <div class="token-card">
+        <div class="token-swatch" style="background:#f0efed"></div>
+        <div class="token-info">
+          <div class="token-name">Border</div>
+          <div class="token-hex">#f0efed</div>
+          <div class="token-var">--color-border</div>
+        </div>
+      </div>
+      <div class="token-card">
+        <div class="token-swatch" style="background:#fff; border:1px solid #f0efed"></div>
+        <div class="token-info">
+          <div class="token-name">White</div>
+          <div class="token-hex">#ffffff</div>
+          <div class="token-var">--color-white</div>
+        </div>
+      </div>
+      <div class="token-card">
+        <div class="token-swatch" style="background:#b94040"></div>
+        <div class="token-info">
+          <div class="token-name">Danger</div>
+          <div class="token-hex">#b94040</div>
+          <div class="token-var">--color-danger</div>
+        </div>
+      </div>
+      <div class="token-card">
+        <div class="token-swatch" style="background:#fce8e8"></div>
+        <div class="token-info">
+          <div class="token-name">Danger BG</div>
+          <div class="token-hex">#fce8e8</div>
+          <div class="token-var">--color-danger-bg</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Typography -->
+  <section id="typography" class="section">
+    <h2 class="section-title">Tipografia</h2>
+    <p class="section-desc">Inter em todos os pesos. Geist usado pontualmente em elementos monoespaçados internos.</p>
+    <div class="type-rows">
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label">Display</div>
+          <div class="type-spec">700 · 36px · -0.03em</div>
+        </div>
+        <div class="type-preview" style="font-size:36px;font-weight:700;letter-spacing:-0.03em;line-height:1.1">Vamos começar?</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label">Heading 1</div>
+          <div class="type-spec">700 · 22px · -0.02em</div>
+        </div>
+        <div class="type-preview" style="font-size:22px;font-weight:700;letter-spacing:-0.02em">Amanda Merien</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label">Heading 2</div>
+          <div class="type-spec">700 · 18px · -0.02em</div>
+        </div>
+        <div class="type-preview" style="font-size:18px;font-weight:700;letter-spacing:-0.02em">Suas tarefas</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label">Semibold</div>
+          <div class="type-spec">600 · 15px</div>
+        </div>
+        <div class="type-preview" style="font-size:15px;font-weight:600">Visão geral</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label">Body Medium</div>
+          <div class="type-spec">500 · 14px · lh 20px</div>
+        </div>
+        <div class="type-preview" style="font-size:14px;font-weight:500;line-height:20px">Transforme ideias em ações.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label">Body Regular</div>
+          <div class="type-spec">400 · 13px · lh 18px</div>
+        </div>
+        <div class="type-preview" style="font-size:13px;font-weight:400;line-height:18px;color:#5f5b57">Fale naturalmente e transforme suas ideias em tarefas.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label">Caption Medium</div>
+          <div class="type-spec">500 · 12px · lh 16px</div>
+        </div>
+        <div class="type-preview" style="font-size:12px;font-weight:500;line-height:16px">Crie por voz</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label">Caption Regular</div>
+          <div class="type-spec">400 · 10px · lh 14px</div>
+        </div>
+        <div class="type-preview" style="font-size:10px;font-weight:400;line-height:14px;color:#5f5b57">Fale para criar tarefas</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label">Overline</div>
+          <div class="type-spec">600 · 10px · ls 0.08em · uppercase</div>
+        </div>
+        <div class="type-preview" style="font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#9e9a97">CONTA</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Spacing -->
+  <section id="spacing" class="section">
+    <h2 class="section-title">Espaçamento</h2>
+    <p class="section-desc">Escala baseada em múltiplos de 4px.</p>
+    <div class="spacing-rows">
+      <div class="spacing-row">
+        <div class="spacing-label">4px — xs</div>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:4px"></div></div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label">8px — sm</div>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px"></div></div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label">10px — base</div>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:10px"></div></div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label">12px — md</div>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:12px"></div></div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label">16px — lg</div>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px"></div></div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label">20px — xl</div>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:20px"></div></div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label">24px — 2xl</div>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:24px"></div></div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label">32px — 3xl</div>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:32px"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Border Radius -->
+  <section id="radius" class="section">
+    <h2 class="section-title">Border Radius</h2>
+    <p class="section-desc">Quatro valores. Pill para ações, lg para cards e caixas de ícone.</p>
+    <div class="radius-grid">
+      <div class="radius-card" style="border-radius:4px">
+        <div class="radius-name">XS</div>
+        <div class="radius-val">4px</div>
+      </div>
+      <div class="radius-card" style="border-radius:8px">
+        <div class="radius-name">SM</div>
+        <div class="radius-val">8px</div>
+      </div>
+      <div class="radius-card" style="border-radius:12px">
+        <div class="radius-name">MD</div>
+        <div class="radius-val">12px</div>
+      </div>
+      <div class="radius-card" style="border-radius:16px">
+        <div class="radius-name">LG</div>
+        <div class="radius-val">16px</div>
+      </div>
+      <div class="radius-card" style="border-radius:9999px;width:120px">
+        <div class="radius-name">Full</div>
+        <div class="radius-val">9999px</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Shadows -->
+  <section id="shadows" class="section">
+    <h2 class="section-title">Sombras</h2>
+    <p class="section-desc">Todas usam <code>rgba(95,91,87, …)</code> — quentes, nunca cinza frio.</p>
+    <div class="shadow-grid">
+      <div class="shadow-card" style="box-shadow:0px 5px 20px rgba(95,91,87,0.08),0px 4px 8px rgba(95,91,87,0.10),0px 2px 2px rgba(95,91,87,0.10)">
+        <div class="shadow-name">Icon</div>
+        <div class="shadow-use">Ícone de feature</div>
+      </div>
+      <div class="shadow-card" style="box-shadow:0px 2px 8px rgba(95,91,87,0.06)">
+        <div class="shadow-name">Card</div>
+        <div class="shadow-use">Cards e seções</div>
+      </div>
+      <div class="shadow-card" style="box-shadow:0px 8px 24px rgba(0,0,0,0.10),0px 2px 6px rgba(0,0,0,0.06)">
+        <div class="shadow-name">Toast</div>
+        <div class="shadow-use">Notificações</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Buttons -->
+  <section id="buttons" class="section">
+    <h2 class="section-title">Botões</h2>
+    <p class="section-desc">Sempre pill shape (<code>border-radius: 9999px</code>). Peso 600.</p>
+    <div class="comp-grid">
+      <div class="comp-block">
+        <div class="comp-block-title">Variantes</div>
+        <div class="comp-preview">
+          <button class="btn btn--primary">Enviar</button>
+          <button class="btn btn--secondary">Cancelar</button>
+          <button class="btn btn--danger">Sair da conta</button>
+          <button class="btn btn--ghost">Ver mais</button>
+          <button class="btn btn--icon">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2V12M2 7H12" stroke="#242320" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="comp-block">
+        <div class="comp-block-title">Com ícone</div>
+        <div class="comp-preview">
+          <button class="btn btn--primary">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10.5 4C10.5 2.61929 9.38071 1.5 8 1.5C6.61929 1.5 5.5 2.61929 5.5 4V8C5.5 9.38071 6.61929 10.5 8 10.5C9.38071 10.5 10.5 9.38071 10.5 8V4Z" stroke="white" stroke-linecap="round"/><path d="M8 12.5V15" stroke="white" stroke-linecap="round"/><path d="M12.5 8C12.5 10.485 10.485 12.5 8 12.5C5.515 12.5 3.5 10.485 3.5 8" stroke="white" stroke-linecap="round"/></svg>
+            Falar
+          </button>
+          <button class="btn btn--secondary">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2V12M2 7H12" stroke="#242320" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Nova tarefa
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Inputs -->
+  <section id="inputs" class="section">
+    <h2 class="section-title">Inputs</h2>
+    <p class="section-desc">Font-size mínimo 16px para evitar zoom no iOS. Placeholder usa <code>--color-black</code> para legibilidade.</p>
+    <div class="comp-preview comp-preview--col">
+      <div class="input-wrap">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="#9e9a97" stroke-width="1.3"/><path d="M10.5 10.5L13.5 13.5" stroke="#9e9a97" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <input placeholder="Pesquisar tarefas..." />
+      </div>
+      <div class="prompt-bar">
+        <input class="prompt-input" placeholder="Conte o que precisa organizar hoje" />
+        <div class="prompt-actions">
+          <button class="btn btn--icon" style="box-shadow:none;background:#f7f7f5">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 3V13M3 8H13" stroke="#242320" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <button class="btn btn--primary" style="padding:8px 14px;font-size:12px">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M10.5 4C10.5 2.619 9.38 1.5 8 1.5C6.62 1.5 5.5 2.619 5.5 4V8C5.5 9.381 6.62 10.5 8 10.5C9.38 10.5 10.5 9.381 10.5 8V4Z" stroke="white" stroke-linecap="round"/><path d="M8 12.5V15" stroke="white" stroke-linecap="round"/><path d="M12.5 8C12.5 10.485 10.485 12.5 8 12.5C5.515 12.5 3.5 10.485 3.5 8" stroke="white" stroke-linecap="round"/></svg>
+            Falar
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Cards -->
+  <section id="cards" class="section">
+    <h2 class="section-title">Cards</h2>
+    <p class="section-desc">Fundo branco, <code>border-radius: 16px</code>, shadow card. Separadores internos em <code>#f0efed</code>.</p>
+    <div class="comp-preview comp-preview--col">
+      <div class="card" style="width:320px">
+        <div class="card-row">
+          <div class="card-row-left">
+            <div class="card-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#78736f" stroke-width="1.5"/><path d="M4 20C4 17.791 7.582 16 12 16C16.418 16 20 17.791 20 20" stroke="#78736f" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <span class="card-row-title">Nome</span>
+          </div>
+          <span class="card-row-value">Amanda Merien</span>
+        </div>
+        <div class="card-separator"></div>
+        <div class="card-row">
+          <div class="card-row-left">
+            <div class="card-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="3" stroke="#78736f" stroke-width="1.5"/><path d="M3 9L12 14L21 9" stroke="#78736f" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <span class="card-row-title">E-mail</span>
+          </div>
+          <span class="card-row-value">amanda@…</span>
+        </div>
+        <div class="card-separator"></div>
+        <div class="card-row">
+          <div class="card-row-left">
+            <div class="card-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="#78736f" stroke-width="1.5"/></svg>
+            </div>
+            <div>
+              <div class="card-row-title">Tema escuro</div>
+              <div style="font-size:10px;color:#9e9a97">Em breve</div>
+            </div>
+          </div>
+          <button class="toggle"><span class="toggle-knob"></span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Badges -->
+  <section id="badges" class="section">
+    <h2 class="section-title">Badges</h2>
+    <p class="section-desc">Usados em categorias, status e contadores. Sempre pill, peso 600.</p>
+    <div class="comp-preview">
+      <span class="badge badge--default">Default</span>
+      <span class="badge badge--success">Concluída</span>
+      <span class="badge badge--warning">Pendente</span>
+      <span class="badge badge--danger">Urgente</span>
+      <span class="badge badge--purple">Foco</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Feature Items -->
+  <section id="feature-items" class="section">
+    <h2 class="section-title">Feature Items</h2>
+    <p class="section-desc">Pill com ícone 32×32 (border-radius 16px, shadow icon), título 12px/500 e subtítulo 10px/400.</p>
+    <div class="comp-preview comp-preview--col">
+      <div class="feature-item">
+        <div class="feature-left">
+          <div class="feature-icon-box">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10.5 4C10.5 2.619 9.38 1.5 8 1.5C6.62 1.5 5.5 2.619 5.5 4V8C5.5 9.381 6.62 10.5 8 10.5C9.38 10.5 10.5 9.381 10.5 8V4Z" stroke="#5f5b57" stroke-linecap="round"/><path d="M8 12.5V15" stroke="#5f5b57" stroke-linecap="round"/><path d="M12.5 8C12.5 10.485 10.485 12.5 8 12.5C5.515 12.5 3.5 10.485 3.5 8" stroke="#5f5b57" stroke-linecap="round"/></svg>
+          </div>
+          <div class="feature-text">
+            <span class="feature-title">Crie por voz</span>
+            <span class="feature-subtitle">Fale para criar tarefas</span>
+          </div>
+        </div>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="#5f5b57" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="feature-item">
+        <div class="feature-left">
+          <div class="feature-icon-box">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5.25 10C7.04 10 8.5 8.545 8.5 6.75C8.5 4.955 7.04 3.5 5.25 3.5C3.455 3.5 2 4.955 2 6.75C2 8.545 3.455 10 5.25 10Z" stroke="#5f5b57" stroke-linecap="round"/><path d="M0.64 12.5C1.14 11.73 1.82 11.1 2.63 10.66C3.43 10.23 4.33 10 5.25 10C6.17 10 7.07 10.23 7.87 10.66C8.68 11.1 9.36 11.73 9.86 12.5" stroke="#5f5b57" stroke-linecap="round"/></svg>
+          </div>
+          <div class="feature-text">
+            <span class="feature-title">Tarefas compartilhadas</span>
+            <span class="feature-subtitle">Planeje com outras pessoas</span>
+          </div>
+        </div>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="#5f5b57" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Overview Cards -->
+  <section id="overview-cards" class="section">
+    <h2 class="section-title">Overview Cards</h2>
+    <p class="section-desc">Usados na tela de Configurações → Produtividade. Grid de 3, border-radius 12px.</p>
+    <div class="comp-preview">
+      <div class="overview-cards">
+        <div class="overview-card">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="3" stroke="#242320" stroke-width="1.4"/><path d="M7 10L9.5 12.5L13.5 8" stroke="#242320" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <span class="overview-num">8</span>
+          <span class="overview-label">Total</span>
+        </div>
+        <div class="overview-card">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#242320" stroke-width="1.4"/><path d="M10 10V5" stroke="#242320" stroke-width="1.4" stroke-linecap="round"/><path d="M10 10L14 12.5" stroke="#242320" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <span class="overview-num">5</span>
+          <span class="overview-label">Pendentes</span>
+        </div>
+        <div class="overview-card">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#242320" stroke-width="1.4"/><path d="M7 10L9.5 12.5L13.5 8" stroke="#242320" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <span class="overview-num">3</span>
+          <span class="overview-label">Concluídas</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Toast -->
+  <section id="toast" class="section">
+    <h2 class="section-title">Toast</h2>
+    <p class="section-desc">Aparece no topo, auto-dismiss em 3.5s com barra de progresso. Tipos: success, error, info.</p>
+    <div class="comp-preview comp-preview--col">
+      <div class="toast-demo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#1a1a1a"/><path d="M8 12L10.5 14.5L16 9" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="toast-body-demo">
+          <div class="toast-title-demo">Tarefa criada!</div>
+          <div class="toast-msg-demo">Reunião com a equipe</div>
+        </div>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M9 3L3 9M3 3L9 9" stroke="#9e9a97" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <div class="toast-progress-demo" style="background:#242320"></div>
+      </div>
+      <div class="toast-demo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#d44"/><path d="M12 8V12" stroke="white" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="15.5" r="0.8" fill="white"/></svg>
+        <div class="toast-body-demo">
+          <div class="toast-title-demo">Erro ao salvar</div>
+          <div class="toast-msg-demo">Tente novamente</div>
+        </div>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M9 3L3 9M3 3L9 9" stroke="#9e9a97" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <div class="toast-progress-demo" style="background:#d44;width:30%"></div>
+      </div>
+      <div class="toast-demo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#5f5b57"/><circle cx="12" cy="8.5" r="0.8" fill="white"/><path d="M12 11V16" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="toast-body-demo">
+          <div class="toast-title-demo">Tarefas removidas</div>
+          <div class="toast-msg-demo">Sua lista foi limpa.</div>
+        </div>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M9 3L3 9M3 3L9 9" stroke="#9e9a97" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <div class="toast-progress-demo" style="background:#9e9a97;width:70%"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Toggle -->
+  <section id="toggle" class="section">
+    <h2 class="section-title">Toggle</h2>
+    <p class="section-desc">44×26px. Off: <code>#e0dedd</code>. On: <code>#242320</code>. Knob 20px com transition 0.2s.</p>
+    <div class="comp-preview">
+      <button class="toggle"><span class="toggle-knob"></span></button>
+      <button class="toggle toggle--on"><span class="toggle-knob"></span></button>
+      <button class="toggle" style="opacity:0.4;cursor:default"><span class="toggle-knob"></span></button>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Categories -->
+  <section id="categories" class="section">
+    <h2 class="section-title">Categorias</h2>
+    <p class="section-desc">8 categorias de tarefa, cada uma com cor e ponto identificador.</p>
+    <div class="comp-preview">
+      <div class="category-grid">
+        <span class="cat" style="background:#fef3c7;color:#b45309"><span class="cat-dot" style="background:#f59e0b"></span>Trabalho</span>
+        <span class="cat" style="background:#dcfce7;color:#15803d"><span class="cat-dot" style="background:#22c55e"></span>Esporte</span>
+        <span class="cat" style="background:#fce7f3;color:#be185d"><span class="cat-dot" style="background:#ec4899"></span>Saúde</span>
+        <span class="cat" style="background:#eff6ff;color:#1d4ed8"><span class="cat-dot" style="background:#3b82f6"></span>Estudo</span>
+        <span class="cat" style="background:#f3e8ff;color:#7e22ce"><span class="cat-dot" style="background:#a855f7"></span>Foco</span>
+        <span class="cat" style="background:#fff7ed;color:#c2410c"><span class="cat-dot" style="background:#f97316"></span>Pessoal</span>
+        <span class="cat" style="background:#f0fdf4;color:#166534"><span class="cat-dot" style="background:#4ade80"></span>Casa</span>
+        <span class="cat" style="background:#f7f7f5;color:#5f5b57"><span class="cat-dot" style="background:#9e9a97"></span>Outros</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Avatars -->
+  <section id="avatars" class="section">
+    <h2 class="section-title">Avatares</h2>
+    <p class="section-desc">Stack com overlap de -6px. Border 2px branco. Contador +N para excedentes.</p>
+    <div class="comp-preview">
+      <div class="avatar-stack">
+        <div class="avatar" style="background:#fce7f3">A</div>
+        <div class="avatar" style="background:#eff6ff">R</div>
+        <div class="avatar" style="background:#dcfce7">M</div>
+        <div class="avatar avatar--more">+3</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Tokens table -->
+  <section id="tokens" class="section">
+    <h2 class="section-title">Tokens CSS</h2>
+    <p class="section-desc">Variáveis CSS declaradas no <code>:root</code> do projeto.</p>
+    <div class="comp-code">
+<span class="key">:root</span> {
+  <span class="key">--color-black</span>:        <span class="str">#242320</span>;
+  <span class="key">--color-soft</span>:         <span class="str">#5f5b57</span>;
+  <span class="key">--color-muted</span>:        <span class="str">#78736f</span>;
+  <span class="key">--color-placeholder</span>: <span class="str">#9e9a97</span>;
+  <span class="key">--color-border</span>:       <span class="str">#f0efed</span>;
+  <span class="key">--color-surface</span>:      <span class="str">#edeceb</span>;
+  <span class="key">--color-bg</span>:           <span class="str">#f7f7f5</span>;
+  <span class="key">--color-white</span>:        <span class="str">#ffffff</span>;
+  <span class="key">--color-danger</span>:       <span class="str">#b94040</span>;
+  <span class="key">--color-danger-bg</span>:    <span class="str">#fce8e8</span>;
+
+  <span class="key">--radius-sm</span>:   <span class="val">8px</span>;
+  <span class="key">--radius-md</span>:   <span class="val">12px</span>;
+  <span class="key">--radius-lg</span>:   <span class="val">16px</span>;
+  <span class="key">--radius-full</span>: <span class="val">9999px</span>;
+
+  <span class="key">--shadow-icon</span>:  <span class="val">0px 5px 20px rgba(95,91,87,0.08), …</span>;
+  <span class="key">--shadow-card</span>:  <span class="val">0px 2px 8px rgba(95,91,87,0.06)</span>;
+  <span class="key">--shadow-toast</span>: <span class="val">0px 8px 24px rgba(0,0,0,0.10), …</span>;
+}
+    </div>
+  </section>
+
+  <footer style="padding-top:40px;border-top:1px solid #f0efed;display:flex;justify-content:space-between;align-items:center">
+    <span style="font-size:12px;color:#c4bfbb">Notion Pulse Design System · v1.0</span>
+    <a href="/" style="font-size:12px;color:#9e9a97;text-decoration:none">← Voltar ao app</a>
+  </footer>
+
+</main>
+
+<script>
+  // Active sidebar link on scroll
+  const links = document.querySelectorAll('.sidebar-link')
+  const sections = document.querySelectorAll('section[id]')
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'))
+        const active = document.querySelector(`.sidebar-link[href="#${entry.target.id}"]`)
+        if (active) active.classList.add('active')
+      }
+    })
+  }, { rootMargin: '-30% 0px -60% 0px' })
+
+  sections.forEach(s => observer.observe(s))
+</script>
+</body>
+</html>
