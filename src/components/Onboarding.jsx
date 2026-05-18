@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { signInWithRedirect } from 'firebase/auth'
+import { signInWithPopup, signInWithRedirect } from 'firebase/auth'
 import { auth, googleProvider } from '../firebase'
 import illustration1 from '../assets/illustration-0.svg'
 import illustration2 from '../assets/illustration-1.svg'
@@ -87,10 +87,19 @@ export default function Onboarding({ onFinish, initialError = '' }) {
     setLoading(true)
     setError('')
     try {
-      await signInWithRedirect(auth, googleProvider)
+      await signInWithPopup(auth, googleProvider)
     } catch (err) {
-      setError('Erro ao iniciar login. Tente novamente.')
-      setLoading(false)
+      if (err?.code === 'auth/popup-blocked' || err?.code === 'auth/popup-closed-by-user') {
+        try {
+          await signInWithRedirect(auth, googleProvider)
+        } catch {
+          setError('Erro ao iniciar login. Tente novamente.')
+          setLoading(false)
+        }
+      } else {
+        setError(err?.message || 'Erro ao iniciar login. Tente novamente.')
+        setLoading(false)
+      }
     }
   }
 

@@ -46,7 +46,9 @@ function App() {
     const unsub = onAuthStateChanged(auth, (u) => {
       setUser(u)
       setAuthReady(true)
-      if (u) setScreen(prev => prev === 'onboarding' || prev === 'splash' ? 'home' : prev)
+      if (u) setScreen(prev =>
+        ['onboarding', 'splash'].includes(prev) ? (tasks.length > 0 ? 'tasks' : 'home') : prev
+      )
     })
     return unsub
   }, [])
