@@ -191,7 +191,7 @@ function CheckIcon() {
   )
 }
 
-export default function Tasks({ tasks = [], user, onFalar = () => {}, onClear = () => {}, onTaskClick = () => {}, onPomodoro = () => {}, onSharedTasks = () => {}, onHome = () => {}, onTyped, onSignOut }) {
+export default function Tasks({ tasks = [], user, onFalar = () => {}, onClear = () => {}, onTaskClick = () => {}, onPomodoro = () => {}, onSharedTasks = () => {}, onHome = () => {}, onConfig = () => {}, onTyped, onSignOut }) {
   const today = new Date()
   const todayISO = toISO(today)
   const [selectedDate, setSelectedDate] = useState(todayISO)
@@ -255,6 +255,10 @@ export default function Tasks({ tasks = [], user, onFalar = () => {}, onClear = 
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 8.6001V21.0001H20V8.6001" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 10L12 3L22 10" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M15 21V15C15 13.895 14.105 13 13 13H11C9.895 13 9 13.895 9 15V21" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <span>Home</span>
                   </button>
+                  <button className="tasks-menu-item" type="button" onClick={() => setShowMenu(false)}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12.9524 15.0432H16.9541" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><rect x="2.99625" y="2.99609" width="18.0075" height="18.0075" rx="5" stroke="#242320" strokeWidth="1.5"/><path d="M6.94989 14.769L7.86927 15.5974L9.72104 13.9307" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M12.9524 10.0412H16.9541" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M6.94989 9.76706L7.86927 10.5954L9.72004 8.92871" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <span>Minhas tarefas</span>
+                  </button>
                   <button className="tasks-menu-item" type="button" onClick={() => { setShowMenu(false); onPomodoro() }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M17.657 7.343C20.781 10.467 20.781 15.533 17.657 18.657C14.533 21.781 9.467 21.781 6.343 18.657C3.219 15.533 3.219 10.467 6.343 7.343C9.467 4.219 14.533 4.219 17.657 7.343" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M12.5 12.998C12.5 12.722 12.276 12.499 12 12.5C11.724 12.501 11.5 12.725 11.5 13.001C11.5 13.277 11.723 13.5 11.999 13.5C12.275 13.5 12.499 13.276 12.5 12.999" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M12 9V13" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M10 2H14" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 6L19 4L20 5L17.657 7.343" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <span>Pomodoro</span>
@@ -263,7 +267,7 @@ export default function Tasks({ tasks = [], user, onFalar = () => {}, onClear = 
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 18C3 15.791 4.791 14 7 14H11C13.209 14 15 15.791 15 18" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M16 4.65088C17.381 4.65088 18.5 5.76988 18.5 7.15088C18.5 8.53188 17.381 9.65088 16 9.65088" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M11.4049 4.99613C12.7331 6.3243 12.7331 8.4777 11.4049 9.80587C10.0767 11.134 7.92333 11.134 6.59516 9.80587C5.26699 8.4777 5.26699 6.3243 6.59516 4.99613C7.92333 3.66796 10.0767 3.66796 11.4049 4.99613" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M17 13C19.209 13 21 14.791 21 17" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <span>Compartilhamentos</span>
                   </button>
-                  <button className="tasks-menu-item" type="button" onClick={() => setShowMenu(false)}>
+                  <button className="tasks-menu-item" type="button" onClick={() => { setShowMenu(false); onConfig() }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M4.506 10.6982V10.6982C3.72954 9.82268 3.60047 8.54849 4.18557 7.535L4.22596 7.465C4.81108 6.45153 5.97906 5.92618 7.12555 6.16077H7.12566C7.59563 6.25694 8.08456 6.1776 8.5 5.93774V5.93774C8.91543 5.69789 9.2286 5.31414 9.3803 4.85906V4.85906C9.75038 3.74885 10.7894 3 11.9596 3H12.0404C13.2107 3 14.2496 3.74885 14.6197 4.85906V4.85906C14.7714 5.31414 15.0846 5.69788 15.5 5.93773V5.93773C15.9154 6.1776 16.4044 6.25695 16.8744 6.16078H16.8745C18.0209 5.92621 19.1889 6.45156 19.774 7.465L19.8144 7.535C20.3995 8.54849 20.2705 9.82271 19.494 10.6983V10.6983C19.1757 11.0572 19 11.5203 19 12V12C19 12.4797 19.1758 12.9428 19.4941 13.3018V13.3018C20.2705 14.1773 20.3996 15.4516 19.8144 16.465L19.774 16.5351C19.1889 17.5485 18.0209 18.0739 16.8745 17.8393L16.8742 17.8392C16.4043 17.7431 15.9154 17.8224 15.5 18.0622V18.0622C15.0846 18.302 14.7714 18.6858 14.6197 19.1409V19.1409C14.2496 20.2511 13.2106 21 12.0403 21H11.9597C10.7894 21 9.75039 20.2511 9.38029 19.1408V19.1408C9.2286 18.6858 8.91544 18.302 8.5 18.0622V18.0622C8.08461 17.8224 7.59576 17.743 7.12585 17.8392L7.12555 17.8392C5.97907 18.0738 4.81111 17.5485 4.226 16.535L4.1856 16.465C3.60046 15.4515 3.72952 14.1773 4.50598 13.3017V13.3017C4.82425 12.9428 4.99999 12.4797 5 12V12C5.00001 11.5203 4.82427 11.0572 4.506 10.6982Z" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="3" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <span>Configurações</span>
                   </button>
@@ -308,28 +312,6 @@ export default function Tasks({ tasks = [], user, onFalar = () => {}, onClear = 
                 <span className="tasks-day-num">{d.date}</span>
               </div>
             ))}
-          </div>
-        </div>
-
-        {/* Visão geral */}
-        <div className="tasks-overview">
-          <span className="tasks-overview-title">Visão geral</span>
-          <div className="tasks-overview-cards">
-            <div className="tasks-overview-card">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="3" stroke="#242320" strokeWidth="1.4"/><path d="M7 10L9.5 12.5L13.5 8" stroke="#242320" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              <span className="tasks-overview-num">{tasks.length}</span>
-              <span className="tasks-overview-label">Total</span>
-            </div>
-            <div className="tasks-overview-card">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#242320" strokeWidth="1.4"/><path d="M10 10V5" stroke="#242320" strokeWidth="1.4" strokeLinecap="round"/><path d="M10 10L14 12.5" stroke="#242320" strokeWidth="1.4" strokeLinecap="round"/></svg>
-              <span className="tasks-overview-num">{tasks.length - completed.size}</span>
-              <span className="tasks-overview-label">Pendentes</span>
-            </div>
-            <div className="tasks-overview-card">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#242320" strokeWidth="1.4"/><path d="M7 10L9.5 12.5L13.5 8" stroke="#242320" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              <span className="tasks-overview-num">{completed.size}</span>
-              <span className="tasks-overview-label">Concluídas</span>
-            </div>
           </div>
         </div>
 

@@ -10,6 +10,7 @@ import TaskDetail from './components/TaskDetail'
 import Pomodoro from './components/Pomodoro'
 import CalendarSheet from './components/CalendarSheet'
 import SharedTasks from './components/SharedTasks'
+import Configuracoes from './components/Configuracoes'
 import './App.css'
 
 function loadTasks() {
@@ -122,12 +123,20 @@ function App() {
         onPomodoro={() => setScreen('pomodoro')}
         onSharedTasks={() => setScreen('sharedTasks')}
         onHome={() => setScreen('home')}
+        onConfig={() => setScreen('config')}
         onTyped={handleTyped}
         onSignOut={handleSignOut}
       />
     )
     if (screen === 'sharedTasks') return (
       <SharedTasks onClose={() => setScreen('home')} />
+    )
+    if (screen === 'config') return (
+      <Configuracoes
+        user={user}
+        tasks={tasks}
+        onClose={() => setScreen(tasks.length > 0 ? 'tasks' : 'home')}
+      />
     )
     if (screen === 'home') return (
       <Home
@@ -137,6 +146,7 @@ function App() {
         onCalendar={() => setShowCalendar(true)}
         onSharedTasks={() => setScreen('sharedTasks')}
         onTasks={() => setScreen('tasks')}
+        onConfig={() => setScreen('config')}
         onTyped={handleTyped}
         onSignOut={handleSignOut}
       />
