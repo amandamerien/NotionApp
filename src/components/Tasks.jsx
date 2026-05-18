@@ -191,7 +191,7 @@ function CheckIcon() {
   )
 }
 
-export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => {}, onTaskClick = () => {}, onPomodoro = () => {}, onSharedTasks = () => {}, onHome = () => {}, onTyped }) {
+export default function Tasks({ tasks = [], user, onFalar = () => {}, onClear = () => {}, onTaskClick = () => {}, onPomodoro = () => {}, onSharedTasks = () => {}, onHome = () => {}, onTyped, onSignOut }) {
   const today = new Date()
   const todayISO = toISO(today)
   const [selectedDate, setSelectedDate] = useState(todayISO)
@@ -231,11 +231,11 @@ export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => 
       <header className="tasks-header">
         <div className="tasks-user-info">
           <div className="tasks-avatar">
-            <img src={avatarImg} alt="Avatar" className="tasks-avatar-img" />
+            <img src={user?.photoURL || avatarImg} alt="Avatar" className="tasks-avatar-img" />
           </div>
           <div className="tasks-user-text">
-            <p className="tasks-user-name">Amanda Merien</p>
-            <p className="tasks-user-email">contato@amandamerien.com</p>
+            <p className="tasks-user-name">{user?.displayName || 'Amanda Merien'}</p>
+            <p className="tasks-user-email">{user?.email || 'contato@amandamerien.com'}</p>
           </div>
         </div>
         <div className="tasks-toolbar">
@@ -259,7 +259,7 @@ export default function Tasks({ tasks = [], onFalar = () => {}, onClear = () => 
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2.5 4.5H13.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M2.5 8H13.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M2.5 11.5H8.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/></svg>
                     <span>Minhas tarefas</span>
                   </button>
-                  <button className="tasks-menu-item tasks-menu-item--danger" type="button" onClick={() => setShowMenu(false)}>
+                  <button className="tasks-menu-item tasks-menu-item--danger" type="button" onClick={() => { setShowMenu(false); onSignOut && onSignOut() }}>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 14H3C2.72386 14 2.5 13.7761 2.5 13.5V2.5C2.5 2.22386 2.72386 2 3 2H6" stroke="#b94040" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M10.5 11L13.5 8L10.5 5" stroke="#b94040" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M13.5 8H6" stroke="#b94040" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <span>Sair</span>
                   </button>

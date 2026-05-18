@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { auth } from './firebase'
 import SplashScreen from './components/SplashScreen'
 import Onboarding from './components/Onboarding'
 import Home from './components/Home'
@@ -25,10 +27,25 @@ function App() {
   const [selectedTask, setSelectedTask] = useState(null)
   const [showCalendar, setShowCalendar] = useState(false)
   const [typedText, setTypedText] = useState('')
+  const [user, setUser] = useState(null)
+  const [authReady, setAuthReady] = useState(false)
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (u) => {
+      setUser(u)
+      setAuthReady(true)
+    })
+    return unsub
+  }, [])
 
   function handleTyped(text) {
     setTypedText(text)
     setScreen('newTask')
+  }
+
+  async function handleSignOut() {
+    await signOut(auth)
+    setScreen('onboarding')
   }
 
   useEffect(() => {
@@ -61,6 +78,7 @@ function App() {
   }
 
   function renderScreen() {
+    if (!authReady) return null
     if (screen === 'pomodoro') return (
       <Pomodoro onClose={() => setScreen(tasks.length > 0 ? 'tasks' : 'home')} />
     )
@@ -82,6 +100,7 @@ function App() {
     if (screen === 'tasks') return (
       <Tasks
         tasks={tasks}
+        user={user}
         onFalar={() => setScreen('newTask')}
         onClear={handleClear}
         onTaskClick={handleTaskClick}
@@ -89,6 +108,7 @@ function App() {
         onSharedTasks={() => setScreen('sharedTasks')}
         onHome={() => setScreen('home')}
         onTyped={handleTyped}
+        onSignOut={handleSignOut}
       />
     )
     if (screen === 'sharedTasks') return (
@@ -96,16 +116,21 @@ function App() {
     )
     if (screen === 'home') return (
       <Home
+        user={user}
         onFalar={() => setScreen('newTask')}
         onPomodoro={() => setScreen('pomodoro')}
         onCalendar={() => setShowCalendar(true)}
         onSharedTasks={() => setScreen('sharedTasks')}
         onTasks={() => setScreen('tasks')}
         onTyped={handleTyped}
+        onSignOut={handleSignOut}
       />
     )
     if (screen === 'onboarding') return (
-      <Onboarding onFinish={() => setScreen(tasks.length > 0 ? 'tasks' : 'home')} />
+      <Onboarding onFinish={(u) => { if (u) setUser(u); setScreen(tasks.length > 0 ? 'tasks' : 'home') }} />
+    )
+    if (!user) return (
+      <Onboarding onFinish={(u) => { if (u) setUser(u); setScreen(tasks.length > 0 ? 'tasks' : 'home') }} />
     )
     return <SplashScreen onFinish={() => setScreen('onboarding')} />
   }

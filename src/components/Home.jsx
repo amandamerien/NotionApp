@@ -93,7 +93,7 @@ function FeatureItem({ icon, title, subtitle, onClick }) {
   )
 }
 
-export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks, onTasks, onTyped }) {
+export default function Home({ user, onFalar, onPomodoro, onCalendar, onSharedTasks, onTasks, onTyped, onSignOut }) {
   const [showMenu, setShowMenu] = useState(false)
   const [promptText, setPromptText] = useState('')
   const promptInputRef = useRef(null)
@@ -109,11 +109,11 @@ export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks, o
         <header className="home-header">
           <div className="home-user-info">
             <div className="home-avatar">
-              <img src={avatarImg} alt="Avatar" className="home-avatar-img" />
+              <img src={user?.photoURL || avatarImg} alt="Avatar" className="home-avatar-img" />
             </div>
             <div className="home-user-text">
-              <p className="home-user-name">Amanda Merien</p>
-              <p className="home-user-email">contato@amandamerien.com</p>
+              <p className="home-user-name">{user?.displayName || 'Amanda Merien'}</p>
+              <p className="home-user-email">{user?.email || 'contato@amandamerien.com'}</p>
             </div>
           </div>
           <div className="home-toolbar">
@@ -133,7 +133,7 @@ export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks, o
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2.5 4.5H13.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M2.5 8H13.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/><path d="M2.5 11.5H8.5" stroke="#242320" strokeWidth="1.3" strokeLinecap="round"/></svg>
                       <span>Minhas tarefas</span>
                     </button>
-                    <button className="home-menu-item home-menu-item--danger" type="button" onClick={() => setShowMenu(false)}>
+                    <button className="home-menu-item home-menu-item--danger" type="button" onClick={() => { setShowMenu(false); onSignOut && onSignOut() }}>
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 14H3C2.72386 14 2.5 13.7761 2.5 13.5V2.5C2.5 2.22386 2.72386 2 3 2H6" stroke="#b94040" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M10.5 11L13.5 8L10.5 5" stroke="#b94040" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M13.5 8H6" stroke="#b94040" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       <span>Sair</span>
                     </button>
@@ -147,7 +147,7 @@ export default function Home({ onFalar, onPomodoro, onCalendar, onSharedTasks, o
         <div className="home-greeting">
           <div className="home-greeting-text">
             <p className="home-title">
-              <span className="home-title-muted">Olá, Merien. </span>
+              <span className="home-title-muted">Olá, {user?.displayName?.split(' ')[0] || 'Merien'}. </span>
               <span>Vamos começar?</span>
             </p>
             <p className="home-subtitle">Transforme ideias em ações.</p>

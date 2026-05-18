@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import { signInWithPopup } from 'firebase/auth'
+import { auth, googleProvider } from '../firebase'
 import illustration1 from '../assets/illustration-0.svg'
 import illustration2 from '../assets/illustration-1.svg'
 import illustration3 from '../assets/illustration-2.svg'
@@ -76,7 +78,25 @@ const BAR_DURATION = 3000
 
 export default function Onboarding({ onFinish }) {
   const [index, setIndex] = useState(0)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const slide = SLIDES[index]
+
+  async function handleGoogleLogin(e) {
+    e.stopPropagation()
+    setLoading(true)
+    setError('')
+    try {
+      const result = await signInWithPopup(auth, googleProvider)
+      onFinish(result.user)
+    } catch (err) {
+      if (err.code !== 'auth/popup-closed-by-user') {
+        setError('Erro ao fazer login. Tente novamente.')
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -148,12 +168,14 @@ export default function Onboarding({ onFinish }) {
         <button
           className="onboarding-google-btn"
           type="button"
-          style={{ boxShadow: `0px 8px 12px 0px ${slide.shadowColor}, 0px 2px 2px 0px ${slide.shadowColor}` }}
-          onClick={onFinish}
+          style={{ boxShadow: `0px 8px 12px 0px ${slide.shadowColor}, 0px 2px 2px 0px ${slide.shadowColor}`, opacity: loading ? 0.7 : 1 }}
+          onClick={handleGoogleLogin}
+          disabled={loading}
         >
           <img src={googleLogo} alt="Google" className="onboarding-google-logo" />
-          <span>Login com o Google</span>
+          <span>{loading ? 'Entrando...' : 'Login com o Google'}</span>
         </button>
+        {error && <p style={{ color: 'red', fontSize: 12, textAlign: 'center', marginTop: 8 }}>{error}</p>}
 
         <div className="onboarding-legal">
           <a href="#" className="onboarding-legal-link" style={{ color: slide.legalColor }}>Temos de uso</a>
