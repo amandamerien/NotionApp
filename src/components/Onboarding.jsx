@@ -86,14 +86,20 @@ export default function Onboarding({ onFinish, initialError = '' }) {
     e.stopPropagation()
     setLoading(true)
     setError('')
+    const POPUP_FAIL_CODES = [
+      'auth/popup-blocked',
+      'auth/popup-closed-by-user',
+      'auth/operation-not-supported-in-this-environment',
+      'auth/cancelled-popup-request',
+    ]
     try {
       await signInWithPopup(auth, googleProvider)
     } catch (err) {
-      if (err?.code === 'auth/popup-blocked' || err?.code === 'auth/popup-closed-by-user') {
+      if (POPUP_FAIL_CODES.includes(err?.code)) {
         try {
           await signInWithRedirect(auth, googleProvider)
-        } catch {
-          setError('Erro ao iniciar login. Tente novamente.')
+        } catch (redirectErr) {
+          setError(redirectErr?.message || 'Erro ao iniciar login. Tente novamente.')
           setLoading(false)
         }
       } else {
