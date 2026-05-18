@@ -11,6 +11,8 @@ import Pomodoro from './components/Pomodoro'
 import CalendarSheet from './components/CalendarSheet'
 import SharedTasks from './components/SharedTasks'
 import Configuracoes from './components/Configuracoes'
+import Toast from './components/Toast'
+import { useToast } from './hooks/useToast'
 import './App.css'
 
 function loadTasks() {
@@ -31,6 +33,7 @@ function App() {
   const [user, setUser] = useState(null)
   const [authReady, setAuthReady] = useState(false)
   const [authError, setAuthError] = useState('')
+  const toast = useToast()
 
   useEffect(() => {
     getRedirectResult(auth).then(result => {
@@ -73,11 +76,14 @@ function App() {
   function handleConfirm(newTasks) {
     setTasks(prev => [...prev, ...newTasks])
     setScreen('tasks')
+    const n = newTasks.length
+    toast.success(n === 1 ? 'Tarefa criada!' : `${n} tarefas criadas!`, newTasks[0]?.title)
   }
 
   function handleClear() {
     setTasks([])
     setScreen('home')
+    toast.info('Tarefas removidas', 'Sua lista foi limpa.')
   }
 
   function handleTaskClick(task) {
@@ -164,6 +170,13 @@ function App() {
     <>
       {renderScreen()}
       {showCalendar && <CalendarSheet onClose={() => setShowCalendar(false)} />}
+      {toast.toasts.length > 0 && (
+        <div className="toast-container">
+          {toast.toasts.map(t => (
+            <Toast key={t.id} {...t} onDismiss={toast.dismiss} />
+          ))}
+        </div>
+      )}
     </>
   )
 }
