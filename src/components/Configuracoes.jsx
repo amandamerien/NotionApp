@@ -98,7 +98,7 @@ function Toggle({ checked, onChange, disabled }) {
   )
 }
 
-export default function Configuracoes({ user, tasks = [], onClose }) {
+export default function Configuracoes({ user, tasks = [], onClose, onSignOut }) {
   const [notificacoes, setNotificacoes] = useState(true)
   const [temaEscuro] = useState(false)
 
@@ -210,7 +210,19 @@ export default function Configuracoes({ user, tasks = [], onClose }) {
           </div>
         </div>
 
-        <div style={{ height: 40 }} />
+        <div className="config-signout-section">
+          <button className="config-signout-btn" type="button" onClick={onSignOut}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path fillRule="evenodd" clipRule="evenodd" d="M11 19.392V7.50298C11 6.81298 10.645 6.17198 10.06 5.80698L6.06 3.30698C4.728 2.47498 3 3.43198 3 5.00298V16.891C3 17.581 3.355 18.222 3.94 18.587L7.94 21.087C9.272 21.92 11 20.962 11 19.392Z" stroke="#b94040" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M15 11H21" stroke="#b94040" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M19 13L21 11L19 9" stroke="#b94040" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M11 19H15C16.105 19 17 18.105 17 17V16" stroke="#b94040" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M17 6V5C17 3.895 16.105 3 15 3H5" stroke="#b94040" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span>Sair da conta</span>
+          </button>
+          <p className="config-version">Notion Pulse · v1.0</p>
+        </div>
       </div>
     </div>
   )

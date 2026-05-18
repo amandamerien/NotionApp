@@ -142,6 +142,7 @@ function App() {
         user={user}
         tasks={tasks}
         onClose={() => setScreen(tasks.length > 0 ? 'tasks' : 'home')}
+        onSignOut={handleSignOut}
       />
     )
     if (screen === 'home') return (
