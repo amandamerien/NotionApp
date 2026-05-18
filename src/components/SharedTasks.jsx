@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import illustration from '../assets/shared-tasks-illustration.svg'
 import logoIcon from '../assets/pulse-icon.svg'
 import './SharedTasks.css'
@@ -49,6 +50,29 @@ function WhatsAppIcon() {
 }
 
 export default function SharedTasks({ onClose }) {
+  const [phone, setPhone] = useState('')
+  const [copied, setCopied] = useState(false)
+
+  function handleCopyLink() {
+    navigator.clipboard.writeText(window.location.origin)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  function handleSend() {
+    if (!phone.trim()) return
+    const digits = phone.replace(/\D/g, '')
+    const number = digits.startsWith('55') ? digits : `55${digits}`
+    const msg = encodeURIComponent('Oi! Vamos organizar nossas tarefas juntos com Notion Pulse? ')
+    const a = document.createElement('a')
+    a.href = `https://wa.me/${number}?text=${msg}`
+    a.target = '_blank'
+    a.rel = 'noopener noreferrer'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+  }
+
   return (
     <div className="shared">
       <header className="shared-header">
@@ -84,19 +108,28 @@ export default function SharedTasks({ onClose }) {
               inputMode="tel"
               placeholder="Nº do Whatsapp"
               autoComplete="tel"
+              value={phone}
+              onChange={e => setPhone(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter') handleSend() }}
             />
-            <WhatsAppIcon />
+            <button
+              type="button"
+              onClick={handleSend}
+              style={{ background: 'none', border: 'none', padding: 0, cursor: phone.trim() ? 'pointer' : 'default', opacity: phone.trim() ? 1 : 0.4, display: 'flex', alignItems: 'center' }}
+            >
+              <WhatsAppIcon />
+            </button>
           </div>
         </div>
 
         <div className="shared-actions">
-          <button className="shared-btn-primary" type="button">
+          <button className="shared-btn-primary" type="button" onClick={handleSend}>
             <SendIcon />
             <span>Enviar convite</span>
           </button>
-          <button className="shared-btn-secondary" type="button">
+          <button className="shared-btn-secondary" type="button" onClick={handleCopyLink}>
             <LinkIcon />
-            <span>Copiar Link</span>
+            <span>{copied ? 'Copiado!' : 'Copiar Link'}</span>
           </button>
         </div>
 

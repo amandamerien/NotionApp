@@ -2,7 +2,7 @@
   width: 390px;
   max-width: 100%;
   min-height: 100svh;
-  background: #fff;
+  background: var(--bg-primary);
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -23,8 +23,8 @@
 .pomo-header-btn {
   width: 32px;
   height: 32px;
-  background: #fff;
-  border: 1px solid #edeceb;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
   border-radius: 122px;
   display: flex;
   align-items: center;
@@ -32,6 +32,7 @@
   cursor: pointer;
   padding: 0;
   flex-shrink: 0;
+  color: var(--text-heading);
 }
 
 .pomo-header-title {
@@ -39,7 +40,7 @@
   font-weight: 600;
   font-size: 14px;
   line-height: 22px;
-  color: #242320;
+  color: var(--text-heading);
 }
 
 /* Body */
@@ -64,7 +65,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #f7f7f5;
+  background: var(--bg-secondary);
   border: none;
   border-radius: 9999px;
   padding: 6px 14px 6px 6px;
@@ -84,7 +85,7 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  color: #000;
+  color: var(--text-primary);
   white-space: nowrap;
 }
 
@@ -102,13 +103,13 @@
   font-weight: 500;
   font-size: 28px;
   line-height: 31px;
-  color: #000;
+  color: var(--text-primary);
   margin: 0 0 6px;
   white-space: nowrap;
 }
 
 .pomo-mode-muted {
-  color: #5f5b57;
+  color: var(--text-secondary);
 }
 
 .pomo-mode-bolt {
@@ -120,7 +121,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 22px;
-  color: #78736f;
+  color: var(--text-muted);
   margin: 0;
 }
 
@@ -152,7 +153,7 @@
   font-size: 48px;
   line-height: 50px;
   letter-spacing: -0.4px;
-  color: #000;
+  color: var(--text-primary);
 }
 
 .pomo-time--done {
@@ -183,7 +184,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 27px;
-  color: #78736f;
+  color: var(--text-muted);
 }
 
 /* Controls */
@@ -213,15 +214,15 @@
   font-weight: 400;
   font-size: 10px;
   line-height: 14px;
-  color: #78736f;
+  color: var(--text-muted);
   white-space: nowrap;
 }
 
 .pomo-ctrl-btn {
   width: 40px;
   height: 40px;
-  background: #fff;
-  border: 1px solid #edeceb;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
   border-radius: 122px;
   display: flex;
   align-items: center;
@@ -229,12 +230,13 @@
   cursor: pointer;
   padding: 0;
   flex-shrink: 0;
+  color: var(--text-heading);
 }
 
 .pomo-play-btn {
   width: 72px;
   height: 72px;
-  background: #000;
+  background: var(--text-primary);
   border: none;
   border-radius: 50%;
   display: flex;
@@ -244,6 +246,7 @@
   padding: 0;
   flex-shrink: 0;
   transition: background 0.2s;
+  color: var(--bg-primary);
 }
 
 .pomo-play-btn--done {
@@ -256,7 +259,7 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
-  color: #78736f;
+  color: var(--text-muted);
   text-align: center;
   margin: 20px 0 0;
 }

@@ -66,6 +66,21 @@ export default function MeetingSheet({ onClose, onConfirm }) {
   const [phone, setPhone] = useState('')
   const [showDatePicker, setShowDatePicker] = useState(false)
 
+  function handleWhatsApp() {
+    if (!phone.trim()) return
+    const digits = phone.replace(/\D/g, '')
+    const number = digits.startsWith('55') ? digits : `55${digits}`
+    const msg = encodeURIComponent('Oi! Vamos organizar nossas tarefas juntos com Notion Pulse? ')
+    const url = `https://wa.me/${number}?text=${msg}`
+    const a = document.createElement('a')
+    a.href = url
+    a.target = '_blank'
+    a.rel = 'noopener noreferrer'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+  }
+
   function handleCreate() {
     if (!name.trim()) return
     const task = {
@@ -78,6 +93,7 @@ export default function MeetingSheet({ onClose, onConfirm }) {
       teamPhone: phone,
     }
     if (onConfirm) onConfirm([task])
+    if (phone.trim()) handleWhatsApp()
     onClose()
   }
 
@@ -152,8 +168,17 @@ export default function MeetingSheet({ onClose, onConfirm }) {
                 placeholder="Nº do Whatsapp"
                 value={phone}
                 onChange={e => setPhone(e.target.value)}
+                onKeyDown={e => { if (e.key === 'Enter' && phone.trim()) handleWhatsApp() }}
               />
-              <WhatsAppIcon />
+              <button
+                type="button"
+                className="meeting-whatsapp-btn"
+                onClick={handleWhatsApp}
+                disabled={!phone.trim()}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: phone.trim() ? 'pointer' : 'default', opacity: phone.trim() ? 1 : 0.4, display: 'flex', alignItems: 'center' }}
+              >
+                <WhatsAppIcon />
+              </button>
             </div>
           </div>
 

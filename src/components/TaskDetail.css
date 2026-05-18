@@ -2,7 +2,7 @@
   width: 390px;
   max-width: 100%;
   min-height: 100svh;
-  background: #fff;
+  background: var(--bg-primary);
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -24,8 +24,8 @@
 .td-header-btn {
   width: 32px;
   height: 32px;
-  background: #fff;
-  border: 1px solid #edeceb;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
   border-radius: 122px;
   display: flex;
   align-items: center;
@@ -33,6 +33,7 @@
   cursor: pointer;
   padding: 0;
   flex-shrink: 0;
+  color: var(--text-heading);
 }
 
 .td-header-title {
@@ -40,7 +41,7 @@
   font-weight: 600;
   font-size: 14px;
   line-height: 22px;
-  color: #242320;
+  color: var(--text-heading);
 }
 
 /* Body: fills remaining height, space-between top/footer */
@@ -70,7 +71,7 @@
 .td-checkbox {
   width: 18px;
   height: 18px;
-  border: 1.5px solid #d8d6d3;
+  border: 1.5px solid var(--border-strong);
   border-radius: 4px;
   flex-shrink: 0;
   background: transparent;
@@ -84,8 +85,8 @@
 }
 
 .td-checkbox--done {
-  background: #242320;
-  border-color: #242320;
+  background: var(--toggle-on);
+  border-color: var(--toggle-on);
 }
 
 .td-title {
@@ -93,7 +94,7 @@
   font-weight: 500;
   font-size: 24px;
   line-height: 27px;
-  color: #000;
+  color: var(--text-primary);
   margin: 0;
   flex: 1;
   min-width: 0;
@@ -106,7 +107,7 @@
   font-weight: 500;
   font-size: 24px;
   line-height: 27px;
-  color: #000;
+  color: var(--text-primary);
   margin: 0;
   flex: 1;
   min-width: 0;
@@ -121,7 +122,7 @@
 
 .td-title--done {
   text-decoration: line-through;
-  color: #b0ada9;
+  color: var(--text-disabled);
 }
 
 /* Info rows — each is its own card */
@@ -132,7 +133,7 @@
 }
 
 .td-row-card {
-  border: 1px solid #edeceb;
+  border: 1px solid var(--border);
   border-radius: 16px;
   padding: 16px;
   display: flex;
@@ -151,6 +152,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  color: var(--text-heading);
 }
 
 .td-row-card--desc .td-row-left {
@@ -164,7 +166,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 22px;
-  color: #000;
+  color: var(--text-primary);
   white-space: nowrap;
 }
 
@@ -185,12 +187,12 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 22px;
-  color: #000;
+  color: var(--text-primary);
   white-space: nowrap;
 }
 
 .td-row-value--muted {
-  color: #c5c2be;
+  color: var(--text-disabled);
   font-weight: 400;
 }
 
@@ -229,8 +231,8 @@
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: #f7f7f5;
-  border: 1.5px solid #fff;
+  background: var(--bg-secondary);
+  border: 1.5px solid var(--bg-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -248,7 +250,7 @@
   font-weight: 500;
   font-size: 10px;
   line-height: 14px;
-  color: #5f5b57;
+  color: var(--text-secondary);
 }
 
 /* Description inside the row card */
@@ -265,8 +267,8 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 22px;
-  color: #5f5b57;
-  background: #f7f7f5;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
   border: none;
   border-radius: 12px;
   padding: 12px;
@@ -278,7 +280,7 @@
 }
 
 .td-description::placeholder {
-  color: #c5c2be;
+  color: var(--text-disabled);
 }
 
 /* Toggle switch */
@@ -286,7 +288,7 @@
   width: 40px;
   height: 24px;
   border-radius: 9999px;
-  background: #edeceb;
+  background: var(--toggle-off);
   border: none;
   cursor: pointer;
   padding: 0 3px;
@@ -298,14 +300,14 @@
 }
 
 .td-switch--on {
-  background: #242320;
+  background: var(--toggle-on);
 }
 
 .td-switch-thumb {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--bg-primary);
   transition: transform 0.2s;
   box-shadow: 0 1px 3px rgba(0,0,0,0.15);
   flex-shrink: 0;
@@ -326,28 +328,28 @@
 .td-save-btn {
   width: 100%;
   height: 48px;
-  background: #000;
+  background: var(--text-primary);
   border: none;
   border-radius: 122px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 22px;
-  color: #fff;
+  color: var(--bg-primary);
   cursor: pointer;
 }
 
 .td-voice-btn {
   width: 100%;
   height: 48px;
-  background: #fff;
-  border: 1px solid #edeceb;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
   border-radius: 122px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 22px;
-  color: #242320;
+  color: var(--text-heading);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -368,7 +370,7 @@
 }
 
 .td-reminder-sheet {
-  background: #fff;
+  background: var(--bg-primary);
   width: 100%;
   max-width: 390px;
   border-radius: 16px 16px 0 0;
@@ -394,14 +396,14 @@
   font-family: 'Inter', sans-serif;
   font-size: 15px;
   font-weight: 400;
-  color: #242320;
+  color: var(--text-heading);
   cursor: pointer;
   text-align: left;
   transition: background 0.12s;
 }
 
 .td-reminder-option:active {
-  background: #f7f7f5;
+  background: var(--bg-secondary);
 }
 
 .td-reminder-option--selected {
@@ -423,7 +425,7 @@
 }
 
 .td-group-sheet {
-  background: #fff;
+  background: var(--bg-primary);
   width: 100%;
   max-width: 390px;
   border-radius: 16px 16px 0 0;
@@ -444,7 +446,7 @@
 .td-group-handle-pill {
   width: 40px;
   height: 6px;
-  background: #edeceb;
+  background: var(--toggle-off);
   border-radius: 122px;
 }
 
@@ -460,7 +462,7 @@
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
-  color: #000;
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -512,7 +514,7 @@
   height: 20px;
   border-radius: 50%;
   background: #7237ae;
-  border: 2px solid #fff;
+  border: 2px solid var(--bg-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -523,19 +525,19 @@
   font-weight: 400;
   font-size: 13px;
   line-height: 18px;
-  color: #242320;
+  color: var(--text-heading);
 }
 
 .td-group-confirm-btn {
   width: 100%;
   height: 48px;
-  background: #000;
+  background: var(--text-primary);
   border: none;
   border-radius: 122px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 14px;
-  color: #fff;
+  color: var(--bg-primary);
   cursor: pointer;
   margin-top: 4px;
 }
@@ -548,6 +550,6 @@
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 14px;
-  color: #78736f;
+  color: var(--text-muted);
   cursor: pointer;
 }

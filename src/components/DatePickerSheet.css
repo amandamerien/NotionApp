@@ -11,7 +11,7 @@
 .dp-sheet {
   width: 100%;
   max-width: 390px;
-  background: #fff;
+  background: var(--bg-primary);
   border-radius: 16px 16px 0 0;
   animation: dp-slide-in 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
@@ -31,7 +31,7 @@
 .dp-handle-pill {
   width: 40px;
   height: 6px;
-  background: #edeceb;
+  background: var(--bg-tertiary);
   border-radius: 122px;
 }
 
@@ -45,7 +45,7 @@
 .dp-btn-cancel {
   font-family: 'Inter', sans-serif;
   font-size: 14px;
-  color: #78736f;
+  color: var(--text-muted);
   background: none;
   border: none;
   cursor: pointer;
@@ -56,7 +56,7 @@
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 14px;
-  color: #242320;
+  color: var(--text-heading);
 }
 
 .dp-btn-confirm {
@@ -87,7 +87,7 @@
   top: 50%;
   transform: translateY(-50%);
   height: 44px;
-  background: #f5f4f2;
+  background: var(--bg-secondary);
   border-radius: 10px;
   pointer-events: none;
   z-index: 0;
@@ -100,7 +100,7 @@
   right: 16px;
   top: 0;
   height: 88px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(to bottom, rgba(var(--bg-sheet-rgb), 0.95) 0%, rgba(var(--bg-sheet-rgb), 0) 100%);
   pointer-events: none;
   z-index: 2;
 }
@@ -112,7 +112,7 @@
   right: 16px;
   bottom: 28px;
   height: 88px;
-  background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(to top, rgba(var(--bg-sheet-rgb), 0.95) 0%, rgba(var(--bg-sheet-rgb), 0) 100%);
   pointer-events: none;
   z-index: 2;
 }
@@ -146,7 +146,7 @@
   font-family: 'Inter', sans-serif;
   font-size: 18px;
   font-weight: 400;
-  color: #242320;
+  color: var(--text-heading);
   scroll-snap-align: center;
   user-select: none;
   white-space: nowrap;

@@ -35,6 +35,15 @@ function App() {
   const [authError, setAuthError] = useState('')
   const toast = useToast()
 
+  const [darkMode, setDarkMode] = useState(() => {
+    try { return localStorage.getItem('notion-pulse-dark') === 'true' } catch { return false }
+  })
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light')
+    try { localStorage.setItem('notion-pulse-dark', darkMode) } catch {}
+  }, [darkMode])
+
   useEffect(() => {
     getRedirectResult(auth).then(result => {
       if (result?.user) {
@@ -143,6 +152,8 @@ function App() {
         tasks={tasks}
         onClose={() => setScreen(tasks.length > 0 ? 'tasks' : 'home')}
         onSignOut={handleSignOut}
+        darkMode={darkMode}
+        onDarkModeChange={setDarkMode}
       />
     )
     if (screen === 'home') return (

@@ -53,8 +53,8 @@ function pad(n) { return String(n).padStart(2, '0') }
 function XIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-      <path d="M15.625 4.375L4.375 15.625" stroke="#242320" strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M4.375 4.375L15.625 15.625" stroke="#242320" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M15.625 4.375L4.375 15.625" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M4.375 4.375L15.625 15.625" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
     </svg>
   )
 }
@@ -62,9 +62,9 @@ function XIcon() {
 function MusicIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-      <path d="M12.6562 13.5C13.7436 13.5 14.625 12.6186 14.625 11.5312C14.625 10.4439 13.7436 9.5625 12.6562 9.5625C11.5689 9.5625 10.6875 10.4439 10.6875 11.5312C10.6875 12.6186 11.5689 13.5 12.6562 13.5Z" stroke="black" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M3.65625 15.75C4.74356 15.75 5.625 14.8686 5.625 13.7812C5.625 12.6939 4.74356 11.8125 3.65625 11.8125C2.56894 11.8125 1.6875 12.6939 1.6875 13.7812C1.6875 14.8686 2.56894 15.75 3.65625 15.75Z" stroke="black" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M5.625 13.7812V3.9375L14.625 1.6875V11.5312" stroke="black" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M12.6562 13.5C13.7436 13.5 14.625 12.6186 14.625 11.5312C14.625 10.4439 13.7436 9.5625 12.6562 9.5625C11.5689 9.5625 10.6875 10.4439 10.6875 11.5312C10.6875 12.6186 11.5689 13.5 12.6562 13.5Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M3.65625 15.75C4.74356 15.75 5.625 14.8686 5.625 13.7812C5.625 12.6939 4.74356 11.8125 3.65625 11.8125C2.56894 11.8125 1.6875 12.6939 1.6875 13.7812C1.6875 14.8686 2.56894 15.75 3.65625 15.75Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M5.625 13.7812V3.9375L14.625 1.6875V11.5312" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   )
 }
@@ -80,7 +80,7 @@ function CaretRightSmIcon() {
 function TaskListIcon() {
   return (
     <svg width="32" height="32" viewBox="20 14 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 31C20 22.1634 27.1634 15 36 15C44.8366 15 52 22.1634 52 31C52 39.8366 44.8366 47 36 47C27.1634 47 20 39.8366 20 31Z" fill="white" filter="drop-shadow(0px 2px 2px rgba(95,91,87,0.1)) drop-shadow(0px 4px 8px rgba(95,91,87,0.1)) drop-shadow(0px 5px 20px rgba(95,91,87,0.08))"/>
+      <path d="M20 31C20 22.1634 27.1634 15 36 15C44.8366 15 52 22.1634 52 31C52 39.8366 44.8366 47 36 47C27.1634 47 20 39.8366 20 31Z" fill="var(--bg-primary)" filter="drop-shadow(0px 2px 2px rgba(95,91,87,0.1)) drop-shadow(0px 4px 8px rgba(95,91,87,0.1)) drop-shadow(0px 5px 20px rgba(95,91,87,0.08))"/>
       <path d="M39.834 22.0156C41.3376 21.9204 42.4888 22.3924 43.4672 23.5512C43.7632 23.9018 43.876 24.2675 43.4435 24.5728C42.9145 24.5485 42.6818 23.6734 42.2328 23.372C40.4909 22.2027 38.2041 22.7752 37.0562 24.4986C36.2321 25.7356 35.9194 27.1892 35.3235 28.5403C34.5066 30.3931 33.678 32.2525 32.8784 34.123C32.8406 34.2129 32.8566 34.1545 32.8675 34.3055C33.4377 34.6686 35.7403 34.1164 36.4498 34.4328C36.5684 34.5976 36.542 34.507 36.5235 34.7158C36.1023 35.3789 33.6054 35.1413 32.8705 35.1117C32.5098 35.0966 32.1471 35.0159 31.9692 34.6725C32.0312 33.773 34.2977 29.166 34.7258 28.0118C35.1069 27.0716 35.4185 26.1144 35.8253 25.1841C36.6387 23.3234 37.8348 22.3051 39.834 22.0156Z" fill="black"/>
       <path d="M38.5566 36.3467C38.8282 36.4872 38.77 36.4104 38.9096 36.6441C38.9283 36.973 38.7349 37.279 38.5153 37.5127C36.4892 39.6695 33.8274 39.8868 31.6013 37.9841C31.3719 37.7011 31.2697 37.4792 31.5091 37.1615C31.9671 37.0807 32.5058 37.8351 32.9301 38.057C34.3845 38.8199 35.9382 38.6531 37.2207 37.6545C37.7331 37.2553 38.042 36.8266 38.5059 36.3933L38.5566 36.3467Z" fill="black"/>
       <path d="M31.4837 22.0137C32.3499 21.948 34.4815 22.0859 34.6672 23.1685C34.4204 23.81 33.637 23.0155 33.1457 22.8888C31.8385 22.552 30.8463 22.8271 29.6797 23.4265C28.988 23.8566 28.699 24.2715 28.1706 24.8696C28.0201 25.0403 27.724 25.2071 27.5381 24.9904C27.4019 24.2433 28.438 23.3609 28.9983 22.9643C29.7531 22.4293 30.5773 22.1502 31.4837 22.0137Z" fill="black"/>
@@ -93,8 +93,8 @@ function TaskListIcon() {
 function ResetIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <path d="M2.5 3.5V6.5H5.5" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M2.543 6.5C3.02896 4.16294 5.10956 2.5 7.5 2.5C10.2614 2.5 12.5 4.73858 12.5 7.5C12.5 10.2614 10.2614 12.5 7.5 12.5C5.43126 12.5 3.6576 11.2338 2.9248 9.5" stroke="#242320" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M2.5 3.5V6.5H5.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M2.543 6.5C3.02896 4.16294 5.10956 2.5 7.5 2.5C10.2614 2.5 12.5 4.73858 12.5 7.5C12.5 10.2614 10.2614 12.5 7.5 12.5C5.43126 12.5 3.6576 11.2338 2.9248 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   )
 }
@@ -102,7 +102,7 @@ function ResetIcon() {
 function PlayIcon() {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-      <path d="M7 4.667L23.333 14L7 23.333V4.667Z" fill="white" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M7 4.667L23.333 14L7 23.333V4.667Z" fill="currentColor" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   )
 }
@@ -110,8 +110,8 @@ function PlayIcon() {
 function PauseIcon() {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-      <rect x="6" y="5" width="5" height="18" rx="2" fill="white"/>
-      <rect x="17" y="5" width="5" height="18" rx="2" fill="white"/>
+      <rect x="6" y="5" width="5" height="18" rx="2" fill="currentColor"/>
+      <rect x="17" y="5" width="5" height="18" rx="2" fill="currentColor"/>
     </svg>
   )
 }
@@ -132,7 +132,7 @@ function LightningIcon() {
 function StopIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <rect x="3" y="3" width="10" height="10" rx="1.5" fill="#242320"/>
+      <rect x="3" y="3" width="10" height="10" rx="1.5" fill="currentColor"/>
     </svg>
   )
 }
@@ -276,7 +276,7 @@ export default function Pomodoro({ onClose }) {
 
               {/* Background track */}
               <circle cx={CX} cy={CY} r={R}
-                fill="none" stroke="#EADBFA" strokeWidth="24"
+                fill="none" stroke="var(--accent-purple-bg)" strokeWidth="24"
               />
 
               {/* Gradient fade overlay on background track */}
@@ -323,7 +323,7 @@ export default function Pomodoro({ onClose }) {
                 style={{ cursor: running || done ? 'default' : dragging ? 'grabbing' : 'grab', touchAction: 'none' }}
               >
                 <circle cx={hx} cy={hy} r="14" fill="transparent" />
-                <circle cx={hx} cy={hy} r="9.5" fill="white"/>
+                <circle cx={hx} cy={hy} r="9.5" fill="var(--bg-primary)"/>
                 <path
                   d={`M ${hx - 3.71} ${hy - 1.85} L ${hx} ${hy + 1.85} L ${hx + 3.71} ${hy - 1.85}`}
                   stroke="#7237AE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
@@ -332,10 +332,10 @@ export default function Pomodoro({ onClose }) {
               </g>
 
               {/* Dial numbers — 8px inside the ring's inner edge */}
-              <text x={CX} y={46} textAnchor="middle" fill="#78736f" fontSize="13" fontFamily="Inter, sans-serif" opacity="0.8">60</text>
-              <text x={252} y={148} textAnchor="end" fill="#78736f" fontSize="13" fontFamily="Inter, sans-serif" opacity="0.8">15</text>
-              <text x={CX} y={252} textAnchor="middle" fill="#78736f" fontSize="13" fontFamily="Inter, sans-serif" opacity="0.8">30</text>
-              <text x={36} y={148} textAnchor="start" fill="#78736f" fontSize="13" fontFamily="Inter, sans-serif" opacity="0.8">45</text>
+              <text x={CX} y={46} textAnchor="middle" fill="var(--text-muted)" fontSize="13" fontFamily="Inter, sans-serif" opacity="0.8">60</text>
+              <text x={252} y={148} textAnchor="end" fill="var(--text-muted)" fontSize="13" fontFamily="Inter, sans-serif" opacity="0.8">15</text>
+              <text x={CX} y={252} textAnchor="middle" fill="var(--text-muted)" fontSize="13" fontFamily="Inter, sans-serif" opacity="0.8">30</text>
+              <text x={36} y={148} textAnchor="start" fill="var(--text-muted)" fontSize="13" fontFamily="Inter, sans-serif" opacity="0.8">45</text>
             </svg>
 
             {/* Center display */}

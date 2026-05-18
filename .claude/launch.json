@@ -5,6 +5,7 @@
       "name": "notion-pulse",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
+      "cwd": "/Users/amandamerien/Desktop/NOTION/notion-pulse",
       "port": 5173
     }
   ]

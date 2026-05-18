@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 100dvh;
-  background: #f7f7f5;
+  background: var(--bg-secondary);
   overflow: hidden;
 }
 
@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  background: #f7f7f5;
+  background: var(--bg-secondary);
   flex-shrink: 0;
 }
 
@@ -21,7 +21,8 @@
   height: 32px;
   border-radius: 9999px;
   border: none;
-  background: #fff;
+  background: var(--bg-primary);
+  color: var(--text-heading);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,7 +34,7 @@
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: 15px;
-  color: #242320;
+  color: var(--text-heading);
   letter-spacing: -0.01em;
 }
 
@@ -58,7 +59,7 @@
   height: 80px;
   border-radius: 9999px;
   padding: 3px;
-  background: #fff;
+  background: var(--bg-primary);
   box-shadow: 0px 4px 16px rgba(95,91,87,0.14), 0px 1px 4px rgba(95,91,87,0.1);
   margin-bottom: 4px;
 }
@@ -75,7 +76,7 @@
   font-family: 'Inter', sans-serif;
   font-weight: 700;
   font-size: 18px;
-  color: #242320;
+  color: var(--text-heading);
   margin: 0;
   letter-spacing: -0.02em;
 }
@@ -84,7 +85,7 @@
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 12px;
-  color: #78736f;
+  color: var(--text-muted);
   margin: 0;
 }
 
@@ -98,13 +99,13 @@
   font-weight: 600;
   font-size: 10px;
   letter-spacing: 0.08em;
-  color: #9e9a97;
+  color: var(--text-placeholder);
   margin: 0 0 8px 4px;
 }
 
 /* Card */
 .config-card {
-  background: #fff;
+  background: var(--bg-primary);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0px 2px 8px rgba(95,91,87,0.06);
@@ -130,12 +131,13 @@
 .config-row-icon {
   width: 30px;
   height: 30px;
-  background: #f7f7f5;
+  background: var(--bg-secondary);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  color: var(--text-muted);
 }
 
 .config-row-text {
@@ -149,7 +151,7 @@
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 13px;
-  color: #242320;
+  color: var(--text-heading);
   white-space: nowrap;
 }
 
@@ -157,14 +159,14 @@
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 11px;
-  color: #9e9a97;
+  color: var(--text-placeholder);
 }
 
 .config-row-value {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 12px;
-  color: #9e9a97;
+  color: var(--text-placeholder);
   flex-shrink: 0;
 }
 
@@ -177,7 +179,7 @@
 
 .config-separator {
   height: 1px;
-  background: #f0efed;
+  background: var(--border);
   margin: 0 16px;
 }
 
@@ -186,7 +188,7 @@
   width: 44px;
   height: 26px;
   border-radius: 9999px;
-  background: #e0dedd;
+  background: var(--toggle-off);
   border: none;
   padding: 0;
   cursor: pointer;
@@ -196,7 +198,7 @@
 }
 
 .config-toggle--on {
-  background: #242320;
+  background: var(--toggle-on);
 }
 
 .config-toggle--disabled {
@@ -211,7 +213,7 @@
   width: 20px;
   height: 20px;
   border-radius: 9999px;
-  background: #fff;
+  background: var(--bg-primary);
   transition: transform 0.2s;
   display: block;
   box-shadow: 0px 1px 4px rgba(0,0,0,0.15);
@@ -229,20 +231,21 @@
 
 .config-overview-card {
   flex: 1;
-  background: #fff;
+  background: var(--bg-primary);
   border-radius: 16px;
   padding: 14px 12px;
   display: flex;
   flex-direction: column;
   gap: 6px;
   box-shadow: 0px 2px 8px rgba(95,91,87,0.06);
+  color: var(--text-heading);
 }
 
 .config-overview-num {
   font-family: 'Inter', sans-serif;
   font-weight: 700;
   font-size: 22px;
-  color: #242320;
+  color: var(--text-heading);
   line-height: 1;
 }
 
@@ -250,7 +253,7 @@
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 11px;
-  color: #78736f;
+  color: var(--text-muted);
 }
 
 /* Sign out */
@@ -269,25 +272,25 @@
   gap: 10px;
   width: 100%;
   padding: 16px;
-  background: #fce8e8;
+  background: var(--danger-bg);
   border: none;
   border-radius: 9999px;
   cursor: pointer;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: 14px;
-  color: #b94040;
+  color: var(--danger);
   transition: background 0.15s;
 }
 
 .config-signout-btn:active {
-  background: #f8d5d5;
+  background: var(--danger-bg-hover);
 }
 
 .config-version {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 12px;
-  color: #c4bfbb;
+  color: var(--text-faint);
   margin: 0;
 }

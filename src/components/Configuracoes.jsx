@@ -5,7 +5,7 @@ import './Configuracoes.css'
 function CloseIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <path d="M12 4L4 12M4 4L12 12" stroke="#242320" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
     </svg>
   )
 }
@@ -13,8 +13,8 @@ function CloseIcon() {
 function PersonIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="8" r="4" stroke="#78736f" strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M4 20C4 17.791 7.582 16 12 16C16.418 16 20 17.791 20 20" stroke="#78736f" strokeWidth="1.5" strokeLinecap="round"/>
+      <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M4 20C4 17.791 7.582 16 12 16C16.418 16 20 17.791 20 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
     </svg>
   )
 }
@@ -22,8 +22,8 @@ function PersonIcon() {
 function MailIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <rect x="3" y="5" width="18" height="14" rx="3" stroke="#78736f" strokeWidth="1.5"/>
-      <path d="M3 9L12 14L21 9" stroke="#78736f" strokeWidth="1.5" strokeLinecap="round"/>
+      <rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" strokeWidth="1.5"/>
+      <path d="M3 9L12 14L21 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
     </svg>
   )
 }
@@ -31,9 +31,9 @@ function MailIcon() {
 function BellIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <path d="M6 10C6 7.791 7.791 6 10 6H14C16.209 6 18 7.791 18 10V17H6V10Z" stroke="#78736f" strokeWidth="1.5" strokeLinejoin="round"/>
-      <path d="M4 17H20" stroke="#78736f" strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M10 17C10 18.105 10.895 19 12 19C13.105 19 14 18.105 14 17" stroke="#78736f" strokeWidth="1.5"/>
+      <path d="M6 10C6 7.791 7.791 6 10 6H14C16.209 6 18 7.791 18 10V17H6V10Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+      <path d="M4 17H20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M10 17C10 18.105 10.895 19 12 19C13.105 19 14 18.105 14 17" stroke="currentColor" strokeWidth="1.5"/>
     </svg>
   )
 }
@@ -41,7 +41,7 @@ function BellIcon() {
 function MoonIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="#78736f" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   )
 }
@@ -49,10 +49,10 @@ function MoonIcon() {
 function LanguageIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="12" r="9" stroke="#78736f" strokeWidth="1.5"/>
-      <path d="M12 3C12 3 9 7 9 12C9 17 12 21 12 21" stroke="#78736f" strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M12 3C12 3 15 7 15 12C15 17 12 21 12 21" stroke="#78736f" strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M3 12H21" stroke="#78736f" strokeWidth="1.5" strokeLinecap="round"/>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5"/>
+      <path d="M12 3C12 3 9 7 9 12C9 17 12 21 12 21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M12 3C12 3 15 7 15 12C15 17 12 21 12 21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M3 12H21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
     </svg>
   )
 }
@@ -60,8 +60,8 @@ function LanguageIcon() {
 function CheckIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-      <rect x="3" y="3" width="14" height="14" rx="3" stroke="#242320" strokeWidth="1.4"/>
-      <path d="M7 10L9.5 12.5L13.5 8" stroke="#242320" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+      <rect x="3" y="3" width="14" height="14" rx="3" stroke="currentColor" strokeWidth="1.4"/>
+      <path d="M7 10L9.5 12.5L13.5 8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   )
 }
@@ -69,9 +69,9 @@ function CheckIcon() {
 function ClockIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-      <circle cx="10" cy="10" r="7" stroke="#242320" strokeWidth="1.4"/>
-      <path d="M10 10V5" stroke="#242320" strokeWidth="1.4" strokeLinecap="round"/>
-      <path d="M10 10L14 12.5" stroke="#242320" strokeWidth="1.4" strokeLinecap="round"/>
+      <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.4"/>
+      <path d="M10 10V5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+      <path d="M10 10L14 12.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
     </svg>
   )
 }
@@ -79,8 +79,8 @@ function ClockIcon() {
 function DoneCircleIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-      <circle cx="10" cy="10" r="7" stroke="#242320" strokeWidth="1.4"/>
-      <path d="M7 10L9.5 12.5L13.5 8" stroke="#242320" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.4"/>
+      <path d="M7 10L9.5 12.5L13.5 8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   )
 }
@@ -98,9 +98,8 @@ function Toggle({ checked, onChange, disabled }) {
   )
 }
 
-export default function Configuracoes({ user, tasks = [], onClose, onSignOut }) {
+export default function Configuracoes({ user, tasks = [], onClose, onSignOut, darkMode, onDarkModeChange }) {
   const [notificacoes, setNotificacoes] = useState(true)
-  const [temaEscuro] = useState(false)
 
   const total = tasks.length
   const concluidas = tasks.filter(t => t.done).length
@@ -173,10 +172,10 @@ export default function Configuracoes({ user, tasks = [], onClose, onSignOut }) 
                 <div className="config-row-icon"><MoonIcon /></div>
                 <div className="config-row-text">
                   <span className="config-row-title">Tema escuro</span>
-                  <span className="config-row-sub">Em breve</span>
+                  <span className="config-row-sub">Muda a aparência do app</span>
                 </div>
               </div>
-              <Toggle checked={temaEscuro} onChange={() => {}} disabled />
+              <Toggle checked={darkMode} onChange={onDarkModeChange} />
             </div>
             <div className="config-separator" />
             <div className="config-row">

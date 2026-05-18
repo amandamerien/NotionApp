@@ -16,7 +16,7 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  background: #fff;
+  background: var(--bg-primary);
   border-radius: 16px;
   padding: 14px 14px 14px 16px;
   box-shadow:
@@ -72,7 +72,7 @@
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: 13px;
-  color: #242320;
+  color: var(--text-heading);
   margin: 0;
   line-height: 18px;
 }
@@ -81,7 +81,7 @@
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 12px;
-  color: #78736f;
+  color: var(--text-muted);
   margin: 0;
   line-height: 16px;
 }
@@ -96,6 +96,7 @@
   align-items: center;
   justify-content: center;
   margin-top: 2px;
+  color: var(--text-muted);
 }
 
 /* Progress bar */
@@ -104,15 +105,15 @@
   bottom: 0;
   left: 0;
   height: 2px;
-  background: #e8e6e3;
+  background: var(--bg-tertiary);
   width: 100%;
   transform-origin: left;
   animation: toast-progress linear forwards;
 }
 
-.toast--success .toast-progress { background: #242320; }
+.toast--success .toast-progress { background: var(--toggle-on); }
 .toast--error   .toast-progress { background: #d44; }
-.toast--info    .toast-progress { background: #9e9a97; }
+.toast--info    .toast-progress { background: var(--text-placeholder); }
 
 @keyframes toast-progress {
   from { transform: scaleX(1); }
