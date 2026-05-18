@@ -157,9 +157,14 @@
   background: #f7f7f5;
 }
 
+.tasks-menu-divider {
+  height: 1px;
+  background: #f0efed;
+  margin: 4px 0;
+}
+
 .tasks-menu-item--danger {
   color: #b94040;
-  background: #fdf2f2;
 }
 
 .tasks-menu-item--danger:active {

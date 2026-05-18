@@ -168,9 +168,14 @@
   background: #f7f7f5;
 }
 
+.home-menu-divider {
+  height: 1px;
+  background: #f0efed;
+  margin: 4px 0;
+}
+
 .home-menu-item--danger {
   color: #b94040;
-  background: #fdf2f2;
 }
 
 .home-menu-item--danger:active {
