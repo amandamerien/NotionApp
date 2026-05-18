@@ -29,9 +29,19 @@ function App() {
   const [typedText, setTypedText] = useState('')
   const [user, setUser] = useState(null)
   const [authReady, setAuthReady] = useState(false)
+  const [authError, setAuthError] = useState('')
 
   useEffect(() => {
-    getRedirectResult(auth).catch(() => {})
+    getRedirectResult(auth).then(result => {
+      if (result?.user) {
+        setUser(result.user)
+        setScreen(prev => prev === 'onboarding' || prev === 'splash' ? 'home' : prev)
+      }
+    }).catch(err => {
+      if (err?.code !== 'auth/no-auth-event') {
+        setAuthError(err?.message || 'Erro ao fazer login. Tente novamente.')
+      }
+    })
 
     const unsub = onAuthStateChanged(auth, (u) => {
       setUser(u)
@@ -130,10 +140,10 @@ function App() {
       />
     )
     if (screen === 'onboarding') return (
-      <Onboarding onFinish={(u) => { if (u) setUser(u); setScreen(tasks.length > 0 ? 'tasks' : 'home') }} />
+      <Onboarding initialError={authError} onFinish={(u) => { if (u) setUser(u); setScreen(tasks.length > 0 ? 'tasks' : 'home') }} />
     )
     if (!user) return (
-      <Onboarding onFinish={(u) => { if (u) setUser(u); setScreen(tasks.length > 0 ? 'tasks' : 'home') }} />
+      <Onboarding initialError={authError} onFinish={(u) => { if (u) setUser(u); setScreen(tasks.length > 0 ? 'tasks' : 'home') }} />
     )
     return <SplashScreen onFinish={() => setScreen('onboarding')} />
   }

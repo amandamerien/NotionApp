@@ -76,10 +76,10 @@ function LegalDot({ color }) {
 
 const BAR_DURATION = 3000
 
-export default function Onboarding({ onFinish }) {
+export default function Onboarding({ onFinish, initialError = '' }) {
   const [index, setIndex] = useState(0)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [error, setError] = useState(initialError)
   const slide = SLIDES[index]
 
   async function handleGoogleLogin(e) {
