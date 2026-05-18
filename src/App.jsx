@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { onAuthStateChanged, signOut, getRedirectResult } from 'firebase/auth'
 import { auth } from './firebase'
 import SplashScreen from './components/SplashScreen'
 import Onboarding from './components/Onboarding'
@@ -31,9 +31,12 @@ function App() {
   const [authReady, setAuthReady] = useState(false)
 
   useEffect(() => {
+    getRedirectResult(auth).catch(() => {})
+
     const unsub = onAuthStateChanged(auth, (u) => {
       setUser(u)
       setAuthReady(true)
+      if (u) setScreen(prev => prev === 'onboarding' || prev === 'splash' ? 'home' : prev)
     })
     return unsub
   }, [])
